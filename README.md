@@ -159,7 +159,7 @@ Influencia en la Economía
 |Implementación               | Implementar clases                      | 1 semana  | Persona**                 | 30/05/2024 | 06/06/2024 |
 |                             | Integrar clases                         | 1 semana  | Persona**                 | 06/06/2024 | 13/06/2024 |
 | Pruebas                     | Pruebas unitarias                       | 1 Dia     | Óscar                     | 13/06/2024 | 14/06/2024 |
-|                             | Pruebas de integración                  | 2 Dias    | Persona**                 | 13/06/2024 | 15/06/2024 |
+|                             | Pruebas de integración                  | 2 Dias    | María José                 | 13/06/2024 | 15/06/2024 |
 |                             | Pruebas de aceptación                   | 1 Dia     | Óscar                     | 14/06/2024 | 15/06/2024 |
 |**Preparación de exposición**| Preparar exposición del avance          | 2 Dias    | Todos                     | 15/06/2024 | 17/06/2024 |
 |**Avance Proyecto Final**    | Presentar el avance de proyecto         | 1 Día     | Todos                     | 17/06/2024 | 17/06/2024 |
