@@ -46,15 +46,20 @@ Un prestatario recibe dinero de un prestamista y mediante un contrato se comprom
 
 ## Tipos de préstamos:
 
-### ***Préstamo personal:*** Es un préstamo que no requiere garantía específica, como un vehículo o una propiedad, y generalmente se basa en la solvencia crediticia del solicitante. Las tasas de interés para préstamos personales suelen ser más altas que para préstamos prendarios o hipotecarios, ya que el prestamista asume un mayor riesgo al no tener una garantía tangible. Las tasas de interés pueden ser fijas o variables, y suelen variar según el historial crediticio del solicitante y la política del prestamista.
+### ***Préstamo personal:***
+Es un préstamo que no requiere garantía específica, como un vehículo o una propiedad, y generalmente se basa en la solvencia crediticia del solicitante. Las tasas de interés para préstamos personales suelen ser más altas que para préstamos prendarios o hipotecarios, ya que el prestamista asume un mayor riesgo al no tener una garantía tangible. Las tasas de interés pueden ser fijas o variables, y suelen variar según el historial crediticio del solicitante y la política del prestamista.
 
-### ***Préstamo prendario:*** Es un préstamo que está respaldado por una garantía tangible, como un vehículo o una joya. En caso de incumplimiento en el pago del préstamo, el prestamista tiene derecho a tomar posesión de la garantía para recuperar el monto prestado. Las tasas de interés para préstamos prendarios suelen ser más bajas que para préstamos personales, ya que la garantía reduce el riesgo para el prestamista.
+### ***Préstamo prendario:***
+Es un préstamo que está respaldado por una garantía tangible, como un vehículo o una joya. En caso de incumplimiento en el pago del préstamo, el prestamista tiene derecho a tomar posesión de la garantía para recuperar el monto prestado. Las tasas de interés para préstamos prendarios suelen ser más bajas que para préstamos personales, ya que la garantía reduce el riesgo para el prestamista.
 
-### ***Préstamo hipotecario:*** Es un préstamo que está respaldado por una garantía hipotecaria, es decir, una propiedad inmobiliaria. Al igual que en el caso de los préstamos prendarios, si el prestatario no cumple con los pagos del préstamo, el prestamista tiene derecho a tomar posesión de la propiedad. Las tasas de interés para préstamos hipotecarios suelen ser más bajas que para préstamos personales, ya que la propiedad ofrece una garantía más sólida para el prestamista.
+### ***Préstamo hipotecario:*** 
+Es un préstamo que está respaldado por una garantía hipotecaria, es decir, una propiedad inmobiliaria. Al igual que en el caso de los préstamos prendarios, si el prestatario no cumple con los pagos del préstamo, el prestamista tiene derecho a tomar posesión de la propiedad. Las tasas de interés para préstamos hipotecarios suelen ser más bajas que para préstamos personales, ya que la propiedad ofrece una garantía más sólida para el prestamista.
 
-### ***Certificados de depósito a corto plazo:*** Los Certificados de Depósito a corto plazo (CDP) son instrumentos financieros de renta fija emitidos por bancos u otras instituciones financieras. Un inversionista deposita dinero a cambio de un certificado que garantiza el pago de capital e intereses al vencimiento. Tienen vencimientos de menos de un año y ofrecen tasas de interés más altas que las cuentas de ahorro estándar. Pueden implicar penalizaciones por retiro anticipado. Son considerados seguros debido a que están respaldados por la solidez financiera de la institución emisora
+### ***Certificados de depósito a corto plazo:*** 
+Los Certificados de Depósito a corto plazo (CDP) son instrumentos financieros de renta fija emitidos por bancos u otras instituciones financieras. Un inversionista deposita dinero a cambio de un certificado que garantiza el pago de capital e intereses al vencimiento. Tienen vencimientos de menos de un año y ofrecen tasas de interés más altas que las cuentas de ahorro estándar. Pueden implicar penalizaciones por retiro anticipado. Son considerados seguros debido a que están respaldados por la solidez financiera de la institución emisora
 
-### ***Préstamos asociados:*** Los préstamos asociados son créditos que se relacionan con la compra de un bien o servicio específico ofrecido por el prestamista. Se emplean comúnmente para financiar la adquisición de cosas como vehículos, viviendas o dispositivos tecnológicos.
+### ***Préstamos asociados:*** 
+Los préstamos asociados son créditos que se relacionan con la compra de un bien o servicio específico ofrecido por el prestamista. Se emplean comúnmente para financiar la adquisición de cosas como vehículos, viviendas o dispositivos tecnológicos.
 
 Estos préstamos requieren que el dinero prestado sea usado exclusivamente para la compra del bien o servicio asociado. Por lo general, presentan condiciones especiales, como tasas de interés y plazos de amortización, que pueden ser más favorables que las de un préstamo estándar debido a la garantía que representa el bien adquirido.
 
@@ -63,9 +68,11 @@ En caso de no cumplir con los pagos del préstamo, el prestamista puede tomar ac
 ## Tasas de interés: 
 La tasa de interés es un monto de dinero que normalmente corresponde a un porcentaje de la operación de dinero que se esté realizando.
 
-### ***Depósitos:*** La tasa de interés expresa el pago que recibe la persona o empresa que deposita el dinero por poner esa cantidad a disposición de otro.
+### ***Depósitos:***
+La tasa de interés expresa el pago que recibe la persona o empresa que deposita el dinero por poner esa cantidad a disposición de otro.
 
-### ***Créditos:*** La tasa de interés es el monto que el deudor deberá pagar a quien le presta, por el uso de ese dinero.
+### ***Créditos:*** 
+La tasa de interés es el monto que el deudor deberá pagar a quien le presta, por el uso de ese dinero.
 
 ## Capital:
 Es uno de los cuatro factores de producción y se refiere a bienes durables y recursos financieros usados para producir otros bienes y servicios. Es esencial para generar riqueza y mejorar los procesos productivos, facilitando el crecimiento económico.
