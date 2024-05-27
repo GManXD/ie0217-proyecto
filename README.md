@@ -140,7 +140,10 @@ El tipo de cambio es la tasa a la que se puede cambiar una moneda por otra. Este
 
 •	Política Monetaria: El tipo de cambio, es un factor que afecta la estabilidad de precios y el comercio internacional, influyendo indirectamente en la política monetaria.
 
-## Referencias
+## ***Conclusión***
+En conclusión, la investigación llevada a cabo ofrece una base robusta para la creación de un sistema de gestión bancaria modernizado y eficiente, destinado a mejorar la interacción entre los agentes bancarios y los clientes. El sistema planteado deberá cumplir con importantes requisitos de funcionalidad y facilidad de uso, de forma que se abarcan los modulos de la atención al cliente e información general sobre distintos tipos de préstamos, además de la gestión detallada de préstamos y transacciones. Esta investigación ha permitido identificar las necesidades específicas del sistema y ha proporcionado una comprensión detallada de los distintos tipos de préstamos, tasas de interés, certificados de deposito a corto plazo y el funcionamiento del tipo de cambio, aspectos fundamentales para una toma de decisiones informada. La estructura del proyecto, organizada en fases de investigación, diseño e implementación, junto con la utilización de un repositorio central en GitHub, garantiza un desarrollo eficiente y colaborativo del sistema. En resumen, la investigación establece una base sólida para desarrollar un sistema bancario innovador que mejorará la experiencia del cliente y optimizará las operaciones bancarias.
+
+## ***Referencias***
 1.	Communications. (2023, 18 enero). Qué es un préstamo financiero: tipos y diferencias con un crédito. BBVA NOTICIAS. https://www.bbva.com/es/salud-financiera/que-es-un-prestamo-financiero-tipos-y-diferencias-con-un-credito/
 2.	iProfesional. (2024). 
 
@@ -162,33 +165,33 @@ El tipo de cambio es la tasa a la que se puede cambiar una moneda por otra. Este
 
 #### Tablas de la base de datos:
 
-**Clientes:**  
+***Clientes:***   
 La tabla `Clientes` contiene información sobre los clientes del banco. Cada cliente tiene un ID único (`IDCliente`), un nombre (`Nombre`), un apellido (`Apellido`), una dirección (`Dirección`), y un número de teléfono (`Teléfono`). El campo `IDCliente` se utiliza como clave primaria.
 
-**Cuentas:**  
+***Cuentas:***  
 La tabla `Cuentas` almacena información sobre las cuentas bancarias de los clientes. Cada cuenta está asociada a un cliente a través del campo `IDCliente`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`. Los campos incluyen el tipo de cuenta (`Tipo Cuenta`), la moneda (`Moneda`), y el saldo actual (`Saldo`). El campo `IDCliente` también actúa como clave externa en esta tabla.
 
-**Préstamos:**  
+***Préstamos:***  
 La tabla `Préstamos` registra los préstamos que los clientes han tomado del banco. Cada préstamo tiene un ID único (`ID Préstamo`), está asociado a un cliente a través del campo `IDCliente`, y tiene un tipo de préstamo (`Tipo Préstamo`), una moneda (`Moneda`), un monto (`Monto`), una tasa de interés (`Tasa Interés`), y un período (`Periodo`). El campo `IDCliente` es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
 
-**Transacciones:**  
+***Transacciones:***  
 La tabla `Transacciones` registra las transacciones realizadas por los clientes en sus cuentas. Cada transacción tiene un ID único (`IDTransaccion`), está asociada a un cliente a través del campo `IDCliente`, y tiene un tipo de transacción (`Tipo Transacción`), un monto (`Monto`), y una fecha (`Fecha Transacción`). El campo `IDCliente` es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
 
-**Detalle Préstamo:**  
+***Detalle Préstamo:***  
 La tabla `Detalle Préstamo` contiene información detallada sobre los préstamos, como los pagos de cuotas. Cada entrada en esta tabla tiene un ID de préstamo (`IDPréstamo`), un número de cuota (`NumeroCuota`), un monto de cuota (`MontoCuota`), una fecha de vencimiento (`FechaVencimiento`), y un estado de pago (`EstadoPago`). La combinación de `IDPrestamo` y `NúmeroCuota` forma la clave primaria de esta tabla, y `IDPrestamo` es una clave externa que hace referencia al `IDPréstamo` en la tabla `Préstamos`.
 
 #### Relaciones Entre Tablas:
 
-**Clientes - Cuentas:**  
+***Clientes - Cuentas:***  
 La tabla `Cuentas` tiene una relación uno a muchos con la tabla `Clientes`. Esto significa que un cliente puede tener múltiples cuentas, pero una cuenta pertenece a un único cliente. La relación está establecida a través del campo `IDCliente` en la tabla `Cuentas`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
 
-**Clientes - Préstamos:**  
+***Clientes - Préstamos:***  
 Similar a la relación entre `Clientes` y `Cuentas`, la tabla `Préstamos` también tiene una relación uno a muchos con la tabla `Clientes`. Un cliente puede tener múltiples préstamos, pero un préstamo pertenece a un único cliente. La relación está establecida a través del campo `IDCliente` en la tabla `Préstamos`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
 
-**Clientes - Transacciones:**  
+***Clientes - Transacciones:***  
 La relación entre `Clientes` y `Transacciones` es similar a las anteriores, siendo también una relación uno a muchos. Un cliente puede tener múltiples transacciones, pero una transacción pertenece a un único cliente. La relación está establecida a través del campo `IDCliente` en la tabla `Transacciones`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
 
-**Préstamos - DetallePréstamo:**  
+***Préstamos - DetallePréstamo:***  
 La tabla `DetallePréstamo` tiene una relación uno a muchos con la tabla `Préstamos`. Un préstamo puede tener múltiples detalles de cuotas de pago, pero un detalle de cuota de pago pertenece a un único préstamo. La relación está establecida a través del campo `IDPréstamo` en la tabla `DetallePréstamo`, que es una clave externa que hace referencia al `IDPréstamo` en la tabla `Préstamos`.
 
 En la siguiente imagen se muestra un diagrame de flujo que representa el flujo del programa:
