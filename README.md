@@ -142,13 +142,14 @@ El tipo de cambio es la tasa a la que se puede cambiar una moneda por otra. Este
 
 ## Referencias
 1.	Communications. (2023, 18 enero). Qué es un préstamo financiero: tipos y diferencias con un crédito. BBVA NOTICIAS. https://www.bbva.com/es/salud-financiera/que-es-un-prestamo-financiero-tipos-y-diferencias-con-un-credito/
-2.	iProfesional. (2024). Qué tipo de préstamos existen y cómo saber cuál me conviene. Recuperado de [enlace](URL)
+2.	iProfesional. (2024). 
 
-3.	Banco de Crédito del Perú (BCP). (2023). ¿Cómo sacar el interés de un préstamo personal y cómo funcionan? Recuperado de [enlace](URL)
+3.	Banco de Crédito del Perú (BCP). (2023). ¿Cómo sacar el interés de un préstamo personal y cómo funcionan? 
 
-4.	Aprende Economía. (2024). Cómo la tasa de interés afecta tus decisiones financieras. Recuperado de [enlace](URL)
+4.	Aprende Economía. (2024). Cómo la tasa de interés afecta tus decisiones financieras.
 
-5.	Perspectivas de PNC. (2024). Explicación de las tasas de interés hipotecario: ¿Qué es una tasa de interés hipotecario? Recuperado de [enlace](URL)
+5.	Perspectivas de PNC. (2024). Explicación de las tasas de interés hipotecario: ¿Qué es una tasa de interés hipotecario? 
+
 6.	Coll Morales, F. (2021, 11 de febrero). Préstamo bancario - Qué es, definición y concepto. Economipedia. Recuperado de [https://economipedia.com/definiciones/prestamo-bancario.html](https://economipedia.com/definiciones/prestamo-bancario.html)
 7.	Westreicher, G. (2019, 6 de octubre). Tipos de créditos - Definición, qué es y concepto. Economipedia. Recuperado de [https://economipedia.com/definiciones/tipos-de-creditos.html](https://economipedia.com/definiciones/tipos-de-creditos.html)
 8.	Gutiérrez, M. E. (2020). Préstamo. Enciclopedia Iberoamericana. Recuperado de [https://enciclopediaiberoamericana.com/definiciones/prestamo.html](https://enciclopediaiberoamericana.com/definiciones/prestamo.html)
@@ -201,12 +202,12 @@ La tabla `DetallePréstamo` tiene una relación uno a muchos con la tabla `Prés
 |                             | Diseño de diagramas de flujo            | 1 Día     | Jason                     | 23/05/2024 | 24/05/2024 |
 |                             | Planificación y cronograma              | 1 Día     | Óscar                     | 24/05/2024 | 25/05/2024 |
 |**Propuesta proyecto final** | Presentar la primera fase del proyecto  | 1 dia     | Todos                     | 27/05/2024 | 27/05/2024 |
-|Implementación               | Implementar clases                      | 1 semana  | Persona**                 | 30/05/2024 | 06/06/2024 |
-|                             | Integrar clases                         | 1 semana  | Persona**                 | 06/06/2024 | 13/06/2024 |
+|Implementación               | Implementar clases                      | 1 semana  | Jason                     | 30/05/2024 | 06/06/2024 |
+|                             | Integrar clases                         | 1 semana  | María José                | 06/06/2024 | 13/06/2024 |
 | Pruebas                     | Pruebas unitarias                       | 1 Dia     | Óscar                     | 13/06/2024 | 14/06/2024 |
 |                             | Pruebas de integración                  | 2 Dias    | María José                 | 13/06/2024 | 15/06/2024 |
 |                             | Pruebas de aceptación                   | 1 Dia     | Óscar                     | 14/06/2024 | 15/06/2024 |
 |**Preparación de exposición**| Preparar exposición del avance          | 2 Dias    | Todos                     | 15/06/2024 | 17/06/2024 |
 |**Avance Proyecto Final**    | Presentar el avance de proyecto         | 1 Día     | Todos                     | 17/06/2024 | 17/06/2024 |
 |**Presentación Proyecto Final**| Revisión general del proyecto         | 1 Día     | Todos                     | 14/07/2024 | 15/07/2024 |
-|                             | Presentar el proyecto                   | 1 Día     | Persona**                 | 16/07/2024 | 16/07/2024 |
+|                             | Presentar el proyecto                   | 1 Día     | A definir**               | 16/07/2024 | 16/07/2024 |
