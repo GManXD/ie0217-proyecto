@@ -39,18 +39,18 @@ Diseñar e implementar un sistema de gestión bancaria que cumpla con los requis
 
 |<span style="color: Blue;">**_Fase_** </span>|<span style="color: Brown;">**_Actividad_** </span>|<span style="color: Orange;">**_Duración_** </span>|<span style="color: Purple;">**_Responsables_** </span>|<span style="color: Green;">**_Inicio_** </span>|<span style="color: Red;">**_Fin_** </span>|
 |-----------------------------|-----------------------------------------|-----------|---------------------------|------------|------------|
-| Investigación               | Recopilación de información             | 2 Días    | Todos                     | 15/05/2024 | 17/05/2024 |
-|                             | Elaboración del archivo Markdown        | 3 Días    | Todos                     | 17/05/2024 | 20/05/2024 |
-| Diseño                      | Diseño del esquema de la base de datos  | 2 Día     | Jason                     | 20/05/2024 | 23/05/2024 |
-|                             | Diseño de diagramas de flujo            | 1 Día     | Jason                     | 25/05/2024 | 26/05/2024 |
-|                             | Planificación y cronograma              | 1 Día     | Óscar                     | 26/05/2024 | 26/05/2024 |
+| Investigación               | Recopilación de información             | 3 Días    | Todos                     | 15/05/2024 | 17/05/2024 |
+|                             | Elaboración del archivo Markdown        | 3 Días    | Todos                     | 18/05/2024 | 21/05/2024 |
+| Diseño                      | Diseño del esquema de la base de datos  | 2 Días    | Jason                     | 20/05/2024 | 21/05/2024 |
+|                             | Diseño de diagramas de flujo            | 1 Día     | Jason                     | 23/05/2024 | 24/05/2024 |
+|                             | Planificación y cronograma              | 1 Día     | Óscar                     | 24/05/2024 | 25/05/2024 |
 |**Propuesta proyecto final** | Presentar la primera fase del proyecto  | 1 dia     | Todos                     | 27/05/2024 | 27/05/2024 |
-| Implementación              | Unificación de la investigación y diseño| 4 semanas | Todos                     | 30/05/2024 | 15/06/2024 |
-|                             | Implementar clases                      | 1 semanas | Persona**                 | 30/05/2024 | 06/06/2024 |
-|                             | Integrar clases                         | 1 semanas | Persona**                 | 06/06/2024 | 13/06/2024 |
+|Implementación               | Implementar clases                      | 1 semana  | Persona**                 | 30/05/2024 | 06/06/2024 |
+|                             | Integrar clases                         | 1 semana  | Persona**                 | 06/06/2024 | 13/06/2024 |
 | Pruebas                     | Pruebas unitarias                       | 1 Dia     | Óscar                     | 13/06/2024 | 14/06/2024 |
 |                             | Pruebas de integración                  | 2 Dias    | Persona**                 | 13/06/2024 | 15/06/2024 |
 |                             | Pruebas de aceptación                   | 1 Dia     | Óscar                     | 14/06/2024 | 15/06/2024 |
-|                             | Preparar exposición                     | 1 semana  | Todos                     | 15/06/2024 | 15/06/2024 |
+|**Preparación de exposición**| Preparar exposición del avance          | 2 Dias    | Todos                     | 15/06/2024 | 17/06/2024 |
 |**Avance Proyecto Final**    | Presentar el avance de proyecto         | 1 Día     | Todos                     | 17/06/2024 | 17/06/2024 |
-|**Presentación Proyecto Final**| Presentar el proyecto                 | 1 Día     | Persona**                 | 16/07/2024 | 16/07/2024 |
+|**Presentación Proyecto Final**| Revisión general del proyecto         | 1 Día     | Todos                     | 14/07/2024 | 15/07/2024 |
+|                             | Presentar el proyecto                   | 1 Día     | Persona**                 | 16/07/2024 | 16/07/2024 |
