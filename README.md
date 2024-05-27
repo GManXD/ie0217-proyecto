@@ -15,7 +15,7 @@ Grupo de proyecto: 04
 <br>
 <br>  
 
-### ***Introducción:***
+# Introducción:
 En este proyecto se busca optimizar y modernizar la forma en que los agentes bancarios interactúan con los clientes, proporcionando una variedad de operaciones bancarias, desde la atención al cliente hasta la gestión de préstamos y cuentas.
 
 El sistema de gestión bancaria debe cumplir con varios requisitos esenciales para garantizar su funcionalidad y usabilidad. Debe operar en dos modalidades: atención a clientes y consulta de información sobre préstamos, esto permitirá tener opciones predefinidas para distintos tipos de préstamos y generar tablas de pagos personalizadas. Además, gestionará hasta dos cuentas bancarias por cliente (en colones y dólares) y facilitará operaciones como depósitos, retiros, transferencias y abonos a préstamos.
@@ -26,7 +26,7 @@ El proyecto se desarrollará en varias fases: investigación, diseño e implemen
 
 Para gestionar el proyecto, se utilizará un repositorio central en GitHub donde se documentarán todas las fases. Las presentaciones del proyecto se realizarán en tres entregas: Propuesta Proyecto Final, Avance Proyecto Final y Presentación Proyecto Final.
 
-### ***Objetivo General:***  
+# Objetivo General:  
 Diseñar e implementar un sistema de gestión bancaria que cumpla con los requisitos y necesidades de una entidad bancaria, facilitando la gestión de cuentas, prestamos y transacciones.
 
 ### ***Objetivos Específicos:***  
