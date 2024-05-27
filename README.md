@@ -215,5 +215,8 @@ Figura 1. Diagrama de flujo del funcionamiento del programa
 |                             | Pruebas de aceptación                   | 1 Dia     | Óscar                     | 14/06/2024 | 15/06/2024 |
 |**Preparación de exposición**| Preparar exposición del avance          | 2 Dias    | Todos                     | 15/06/2024 | 17/06/2024 |
 |**Avance Proyecto Final**    | Presentar el avance de proyecto         | 1 Día     | Todos                     | 17/06/2024 | 17/06/2024 |
-|**Presentación Proyecto Final**| Revisión general del proyecto         | 1 Día     | Todos                     | 14/07/2024 | 15/07/2024 |
+|**Presentación Proyecto Final**| Revisión general del proyecto         | 1 Semana  | Todos                     | 25/06/2024 | 30/06/2024 |
+|                             | Revisar estética del codigo             | 1 Semana  | Óscar                     | 30/06/2024 | 07/07/2024 |
+|                             | Corrección de errores                   | 1 Semana  | María Jose                | 08/07/2024 | 13/07/2024 |
+|                             | Mejorar documentación                   | 2 Días    | Óscar                     | 14/07/2024 | 16/07/2024 |
 |                             | Presentar el proyecto                   | 1 Día     | A definir**               | 16/07/2024 | 16/07/2024 |
