@@ -27,118 +27,120 @@ Para gestionar el proyecto, se utilizará un repositorio central en GitHub donde
 # Objetivos:
 
 ### ***Objetivo General:***  
-Diseñar e implementar un sistema de gestión bancaria que cumpla con los requisitos y necesidades de una entidad bancaria, facilitando la gestión de cuentas, prestamos y transacciones.
+    Diseñar e implementar un sistema de gestión bancaria que cumpla con los requisitos y necesidades de una entidad bancaria, facilitando la gestión de cuentas, prestamos y transacciones.
 
 ### ***Objetivos Específicos:***  
-1. Proveer un módulo de operación para proporcionar información general sobre diferentes tipos de préstamos.
+    1. Proveer un módulo de operación para proporcionar información general sobre diferentes tipos de préstamos.
 
-2. Permitir la realización de depósitos, retiros, transferencias, y abonos a préstamos, además de gestionar múltiples cuentas y certificados de depósito a plazo (CDP).
+    2. Permitir la realización de depósitos, retiros, transferencias, y abonos a préstamos, además de gestionar múltiples cuentas y certificados de depósito a plazo (CDP).
 
-3. Proporcionar un registro preciso sobre las transacciones realizadas por el cliente.
+    3. Proporcionar un registro preciso sobre las transacciones realizadas por el cliente.
 
 # Desarrollo:
 
 ## Prestamos:
-Un prestatario recibe dinero de un prestamista y mediante un contrato se compromete, a devolverlo según unas cuotas, intereses y plazos acordados por ambas partes. Esta operación, se ha democratizado gracias a los bancos y se ha ido sistematizando y sofisticando con el paso del tiempo. 
+    Un prestatario recibe dinero de un prestamista y mediante un contrato se compromete, a devolverlo según unas cuotas, intereses y plazos acordados por ambas partes. Esta operación, se ha democratizado gracias a los bancos y se ha ido sistematizando y sofisticando con el paso del tiempo. 
 
 ## Tipos de préstamos:
 
 ### ***Préstamo personal:***
-Es un préstamo que no requiere garantía específica, como un vehículo o una propiedad, y generalmente se basa en la solvencia crediticia del solicitante. Las tasas de interés para préstamos personales suelen ser más altas que para préstamos prendarios o hipotecarios, ya que el prestamista asume un mayor riesgo al no tener una garantía tangible. Las tasas de interés pueden ser fijas o variables, y suelen variar según el historial crediticio del solicitante y la política del prestamista.
+    Es un préstamo que no requiere garantía específica, como un vehículo o una propiedad, y generalmente se basa en la solvencia crediticia del solicitante. Las tasas de interés para préstamos personales suelen ser más altas que para préstamos prendarios o hipotecarios, ya que el prestamista asume un mayor riesgo al no tener una garantía tangible. Las tasas de interés pueden ser fijas o variables, y suelen variar según el historial crediticio del solicitante y la política del prestamista.
 
 ### ***Préstamo prendario:***
-Es un préstamo que está respaldado por una garantía tangible, como un vehículo o una joya. En caso de incumplimiento en el pago del préstamo, el prestamista tiene derecho a tomar posesión de la garantía para recuperar el monto prestado. Las tasas de interés para préstamos prendarios suelen ser más bajas que para préstamos personales, ya que la garantía reduce el riesgo para el prestamista.
+    Es un préstamo que está respaldado por una garantía tangible, como un vehículo o una joya. En caso de incumplimiento en el pago del préstamo, el prestamista tiene derecho a tomar posesión de la garantía para recuperar el monto prestado. Las tasas de interés para préstamos prendarios suelen ser más bajas que para préstamos personales, ya que la garantía reduce el riesgo para el prestamista.
 
 ### ***Préstamo hipotecario:*** 
-Es un préstamo que está respaldado por una garantía hipotecaria, es decir, una propiedad inmobiliaria. Al igual que en el caso de los préstamos prendarios, si el prestatario no cumple con los pagos del préstamo, el prestamista tiene derecho a tomar posesión de la propiedad. Las tasas de interés para préstamos hipotecarios suelen ser más bajas que para préstamos personales, ya que la propiedad ofrece una garantía más sólida para el prestamista.
+    Es un préstamo que está respaldado por una garantía hipotecaria, es decir, una propiedad inmobiliaria. Al igual que en el caso de los préstamos prendarios, si el prestatario no cumple con los pagos del préstamo, el prestamista tiene derecho a tomar posesión de la propiedad. Las tasas de interés para préstamos hipotecarios suelen ser más bajas que para préstamos personales, ya que la propiedad ofrece una garantía más sólida para el prestamista.
 
 ### ***Certificados de depósito a corto plazo:*** 
-Los Certificados de Depósito a corto plazo (CDP) son instrumentos financieros de renta fija emitidos por bancos u otras instituciones financieras. Un inversionista deposita dinero a cambio de un certificado que garantiza el pago de capital e intereses al vencimiento. Tienen vencimientos de menos de un año y ofrecen tasas de interés más altas que las cuentas de ahorro estándar. Pueden implicar penalizaciones por retiro anticipado. Son considerados seguros debido a que están respaldados por la solidez financiera de la institución emisora
+    Los Certificados de Depósito a corto plazo (CDP) son instrumentos financieros de renta fija emitidos por bancos u otras instituciones financieras. Un inversionista deposita dinero a cambio de un certificado que garantiza el pago de capital e intereses al vencimiento. Tienen vencimientos de menos de un año y ofrecen tasas de interés más altas que las cuentas de ahorro estándar. Pueden implicar penalizaciones por retiro anticipado. Son considerados seguros debido a que están respaldados por la solidez financiera de la institución emisora
 
 ### ***Préstamos asociados:*** 
-Los préstamos asociados son créditos que se relacionan con la compra de un bien o servicio específico ofrecido por el prestamista. Se emplean comúnmente para financiar la adquisición de cosas como vehículos, viviendas o dispositivos tecnológicos.
+    Los préstamos asociados son créditos que se relacionan con la compra de un bien o servicio específico ofrecido por el prestamista. Se emplean comúnmente para financiar la adquisición de cosas como vehículos, viviendas o dispositivos tecnológicos.
 
-Estos préstamos requieren que el dinero prestado sea usado exclusivamente para la compra del bien o servicio asociado. Por lo general, presentan condiciones especiales, como tasas de interés y plazos de amortización, que pueden ser más favorables que las de un préstamo estándar debido a la garantía que representa el bien adquirido.
+    Estos préstamos requieren que el dinero prestado sea usado exclusivamente para la compra del bien o servicio asociado. Por lo general, presentan condiciones especiales, como tasas de interés y plazos de amortización, que pueden ser más favorables que las de un préstamo estándar debido a la garantía que representa el bien adquirido.
 
-En caso de no cumplir con los pagos del préstamo, el prestamista puede tomar acciones para recuperar el bien o servicio financiado, ya que suelen estar respaldados por un contrato de garantía específico.
+    En caso de no cumplir con los pagos del préstamo, el prestamista puede tomar acciones para recuperar el bien o servicio financiado, ya que suelen estar respaldados por un contrato de garantía específico.
 
 ## Tasas de interés: 
-La tasa de interés es un monto de dinero que normalmente corresponde a un porcentaje de la operación de dinero que se esté realizando.
+    La tasa de interés es un monto de dinero que normalmente corresponde a un porcentaje de la operación de dinero que se esté realizando.
 
 ### ***Depósitos:***
-La tasa de interés expresa el pago que recibe la persona o empresa que deposita el dinero por poner esa cantidad a disposición de otro.
+    La tasa de interés expresa el pago que recibe la persona o empresa que deposita el dinero por poner esa cantidad a disposición de otro.
 
 ### ***Créditos:*** 
-La tasa de interés es el monto que el deudor deberá pagar a quien le presta, por el uso de ese dinero.
+    La tasa de interés es el monto que el deudor deberá pagar a quien le presta, por el uso de ese dinero.
 
 ## Capital:
-Es uno de los cuatro factores de producción y se refiere a bienes durables y recursos financieros usados para producir otros bienes y servicios. Es esencial para generar riqueza y mejorar los procesos productivos, facilitando el crecimiento económico.
+    Es uno de los cuatro factores de producción y se refiere a bienes durables y recursos financieros usados para producir otros bienes y servicios. Es esencial para generar riqueza y mejorar los procesos productivos, facilitando el crecimiento económico.
 
 Se clasifica en:
 
-•	Según el propietario: capital público y privado.
+•	`Según el propietario:` capital público y privado.
 
-•	Según la constitución: capital físico e intangible.
+•	`Según la constitución:` capital físico e intangible.
 
-•	Según el plazo: capital a corto y largo plazo.
+•	`Según el plazo:` capital a corto y largo plazo.
 
-•	Según su uso: capital social, de riesgo y flotante.
+•	`Según su uso:` capital social, de riesgo y flotante.
 
 ## Interés: 
-Es la cantidad extra que se añade al devolver el capital solicitado o al recuperar una inversión. Es fundamental para mantener una buena salud financiera y entender la rentabilidad de las inversiones y el costo de los préstamos.
+    Es la cantidad extra que se añade al devolver el capital solicitado o al recuperar una inversión. Es fundamental para mantener una buena salud financiera y entender la rentabilidad de las inversiones y el costo de los préstamos.
 
 ### ***Tipos de Interés:***
 
 ### ***Según su naturaleza:***
-•	Interés simple: Se genera sobre el capital inicial.
+•	`Interés simple:` Se genera sobre el capital inicial.  
 
-•	Interés compuesto: Se suma al capital general y genera nuevos intereses.
+•	`Interés compuesto:` Se suma al capital general y genera nuevos intereses.  
 
 ### ***Según el préstamo o crédito:***
-•	Tipo de interés fijo: Permanece igual durante todo el plazo del préstamo.
+•	Tipo de `interés fijo`: Permanece igual durante todo el plazo del préstamo.  
 
-•	Tipo de interés variable: Puede cambiar durante la operación financiera, basado en índices como la inflación o el Euribor.
+•	Tipo de `interés variable`: Puede cambiar durante la operación financiera, basado en índices como la inflación o el Euribor.  
 
 ### ***En los préstamos:***
-•	TIN (Tipo de Interés Nominal): Porcentaje fijo pactado por el dinero prestado.
-•	TAE (Tasa Anual Equivalente): Indica el coste efectivo de los préstamos, incluyendo comisiones y gastos.
+•	`TIN` (Tipo de Interés Nominal): Porcentaje fijo pactado por el dinero prestado.  
+•	`TAE` (Tasa Anual Equivalente): Indica el coste efectivo de los préstamos, incluyendo comisiones y gastos.  
 
 ### ***En las hipotecas:***
-•	Interés fijo: No cambia durante el plazo.
-•	Interés variable: Varía con el tiempo.
-•	Interés mixto: Combinación de fijo y variable.
+•	`Interés fijo:` No cambia durante el plazo.  
+•	`Interés variable:` Varía con el tiempo.  
+•	`Interés mixto:` Combinación de fijo y variable.  
 
 ### ***En las tarjetas de crédito:***
-•	Interés de saldos excedidos: Se aplica al superar el límite de crédito.
-•	Interés de demora: Se aplica cuando no se paga a tiempo.
+•	`Interés de saldos excedidos:` Se aplica al superar el límite de crédito.  
+•	`Interés de demora:` Se aplica cuando no se paga a tiempo.  
 
 ## Explicación del tipo de cambio 
-El tipo de cambio es la tasa a la que se puede cambiar una moneda por otra. Este tipo varía continuamente en los mercados mundiales de divisas.
+    El tipo de cambio es la tasa a la que se puede cambiar una moneda por otra. Este tipo varía continuamente en los mercados mundiales de divisas.
 
 ### ***Precio de Compra y Venta:***
 
-•	Precio de compra: Es la tasa a la que se puede vender una moneda para obtener otra.
+•	`Precio de compra:` Es la tasa a la que se puede vender una moneda para obtener otra.  
 
-•	Precio de venta: Es la tasa a la que se puede comprar una moneda utilizando otra.
+•	`Precio de venta:` Es la tasa a la que se puede comprar una moneda utilizando otra.  
 
 ### ***Funcionamiento del Tipo de Cambio:***
 
-•	Mercados de Divisas: Los tipos de cambio fluctúan en los mercados de divisas donde se negocian las monedas.
+•	`Mercados de Divisas:` Los tipos de cambio fluctúan en los mercados de divisas donde se negocian las monedas.  
 
-•	Tipos de referencia: Se publica diariamente los tipos de cambio de referencia en la media de los precios de compra y venta.
+•	`Tipos de referencia:` Se publica diariamente los tipos de cambio de referencia en la media de los precios de compra y venta.  
 
-•	Tipo de Cambio Efectivo Nominal: Indica el costo promedio de cambiar monedas extranjeras basado en las medias ponderadas.
+•	`Tipo de Cambio Efectivo Nominal:` Indica el costo promedio de cambiar monedas extranjeras basado en las medias ponderadas.  
 
 ### ***Influencia en la Economía:***
 
-•	Exportaciones: Un tipo de cambio favorable, donde la moneda local se deprecia, hace que los productos locales sean más baratos en el extranjero, lo que impulsa las exportaciones al aumentar su competitividad.
+•	`Exportaciones:` Un tipo de cambio favorable, donde la moneda local se deprecia, hace que los productos locales sean más baratos en el extranjero, lo que impulsa las exportaciones al aumentar su competitividad.  
 
-•	Importaciones: Un tipo de cambio desfavorable, donde la moneda local se aprecia, hace que los productos extranjeros sean más baratos para los consumidores locales, lo que puede aumentar las importaciones.
+•	`Importaciones:` Un tipo de cambio desfavorable, donde la moneda local se aprecia, hace que los productos extranjeros sean más baratos para los consumidores locales, lo que puede aumentar las importaciones.  
 
-•	Política Monetaria: El tipo de cambio, es un factor que afecta la estabilidad de precios y el comercio internacional, influyendo indirectamente en la política monetaria.
+•	`Política Monetaria:` El tipo de cambio, es un factor que afecta la estabilidad de precios y el comercio internacional, influyendo indirectamente en la política monetaria.  
 
 ## ***Conclusión***
-En conclusión, la investigación llevada a cabo ofrece una base robusta para la creación de un sistema de gestión bancaria modernizado y eficiente, destinado a mejorar la interacción entre los agentes bancarios y los clientes. El sistema planteado deberá cumplir con importantes requisitos de funcionalidad y facilidad de uso, de forma que se abarcan los modulos de la atención al cliente e información general sobre distintos tipos de préstamos, además de la gestión detallada de préstamos y transacciones. Esta investigación ha permitido identificar las necesidades específicas del sistema y ha proporcionado una comprensión detallada de los distintos tipos de préstamos, tasas de interés, certificados de deposito a corto plazo y el funcionamiento del tipo de cambio, aspectos fundamentales para una toma de decisiones informada. La estructura del proyecto, organizada en fases de investigación, diseño e implementación, junto con la utilización de un repositorio central en GitHub, garantiza un desarrollo eficiente y colaborativo del sistema. En resumen, la investigación establece una base sólida para desarrollar un sistema bancario innovador que mejorará la experiencia del cliente y optimizará las operaciones bancarias.
+    En conclusión, la investigación llevada a cabo ofrece una base robusta para la creación de un sistema de gestión bancaria modernizado y eficiente, destinado a mejorar la interacción entre los agentes bancarios y los clientes. El sistema planteado deberá cumplir con importantes requisitos de funcionalidad y facilidad de uso, de forma que se abarcan los modulos de la atención al cliente e información general sobre distintos tipos de préstamos, además de la gestión detallada de préstamos y transacciones. Esta investigación ha permitido identificar las necesidades específicas del sistema y ha proporcionado una comprensión detallada de los distintos tipos de préstamos, tasas de interés, certificados de deposito a corto plazo y el funcionamiento del tipo de cambio, aspectos fundamentales para una toma de decisiones informada. 
+    
+    La estructura del proyecto, organizada en fases de investigación, diseño e implementación, junto con la utilización de un repositorio central en GitHub, garantiza un desarrollo eficiente y colaborativo del sistema. En resumen, la investigación establece una base sólida para desarrollar un sistema bancario innovador que mejorará la experiencia del cliente y optimizará las operaciones bancarias.
 
 ## ***Referencias***
 1.	Communications. (2023, 18 enero). Qué es un préstamo financiero: tipos y diferencias con un crédito. BBVA NOTICIAS. https://www.bbva.com/es/salud-financiera/que-es-un-prestamo-financiero-tipos-y-diferencias-con-un-credito/
