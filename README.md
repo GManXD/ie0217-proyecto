@@ -191,6 +191,10 @@ La relación entre `Clientes` y `Transacciones` es similar a las anteriores, sie
 **Préstamos - DetallePréstamo:**  
 La tabla `DetallePréstamo` tiene una relación uno a muchos con la tabla `Préstamos`. Un préstamo puede tener múltiples detalles de cuotas de pago, pero un detalle de cuota de pago pertenece a un único préstamo. La relación está establecida a través del campo `IDPréstamo` en la tabla `DetallePréstamo`, que es una clave externa que hace referencia al `IDPréstamo` en la tabla `Préstamos`.
 
+En la siguiente imagen se muestra un diagrame de flujo que representa el flujo del programa:
+
+![alt text](images/diagramaFlujo.jpg)  
+Figura 1. Diagrama de flujo del funcionamiento del programa
 
 ## ***Cronograma***
 
