@@ -157,7 +157,41 @@ El tipo de cambio es la tasa a la que se puede cambiar una moneda por otra. Este
 11.	Coca, M. (2023b, agosto 17). ¿Qué es el interés y qué tipos de interés existen? BBVA NOTICIAS. https://www.bbva.com/es/saludfinanciera/queeselinteresyquetiposdeinteresexisten/
 12.	European Central Bank. (2021, 18 noviembre). ¿Cuál es la función de los tipos de cambio? https://www.ecb.europa.eu/ecbandyou/explainers/tellmemore/html/role_of_exchange_rates.es.html
 
+# Diseño 
 
+#### Tablas de la base de datos:
+
+**Clientes:**  
+La tabla `Clientes` contiene información sobre los clientes del banco. Cada cliente tiene un ID único (`IDCliente`), un nombre (`Nombre`), un apellido (`Apellido`), una dirección (`Dirección`), y un número de teléfono (`Teléfono`). El campo `IDCliente` se utiliza como clave primaria.
+
+**Cuentas:**  
+La tabla `Cuentas` almacena información sobre las cuentas bancarias de los clientes. Cada cuenta está asociada a un cliente a través del campo `IDCliente`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`. Los campos incluyen el tipo de cuenta (`Tipo Cuenta`), la moneda (`Moneda`), y el saldo actual (`Saldo`). El campo `IDCliente` también actúa como clave externa en esta tabla.
+
+**Préstamos:**  
+La tabla `Préstamos` registra los préstamos que los clientes han tomado del banco. Cada préstamo tiene un ID único (`ID Préstamo`), está asociado a un cliente a través del campo `IDCliente`, y tiene un tipo de préstamo (`Tipo Préstamo`), una moneda (`Moneda`), un monto (`Monto`), una tasa de interés (`Tasa Interés`), y un período (`Periodo`). El campo `IDCliente` es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
+
+**Transacciones:**  
+La tabla `Transacciones` registra las transacciones realizadas por los clientes en sus cuentas. Cada transacción tiene un ID único (`IDTransaccion`), está asociada a un cliente a través del campo `IDCliente`, y tiene un tipo de transacción (`Tipo Transacción`), un monto (`Monto`), y una fecha (`Fecha Transacción`). El campo `IDCliente` es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
+
+**Detalle Préstamo:**  
+La tabla `Detalle Préstamo` contiene información detallada sobre los préstamos, como los pagos de cuotas. Cada entrada en esta tabla tiene un ID de préstamo (`IDPréstamo`), un número de cuota (`NumeroCuota`), un monto de cuota (`MontoCuota`), una fecha de vencimiento (`FechaVencimiento`), y un estado de pago (`EstadoPago`). La combinación de `IDPrestamo` y `NúmeroCuota` forma la clave primaria de esta tabla, y `IDPrestamo` es una clave externa que hace referencia al `IDPréstamo` en la tabla `Préstamos`.
+
+#### Relaciones Entre Tablas:
+
+**Clientes - Cuentas:**  
+La tabla `Cuentas` tiene una relación uno a muchos con la tabla `Clientes`. Esto significa que un cliente puede tener múltiples cuentas, pero una cuenta pertenece a un único cliente. La relación está establecida a través del campo `IDCliente` en la tabla `Cuentas`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
+
+**Clientes - Préstamos:**  
+Similar a la relación entre `Clientes` y `Cuentas`, la tabla `Préstamos` también tiene una relación uno a muchos con la tabla `Clientes`. Un cliente puede tener múltiples préstamos, pero un préstamo pertenece a un único cliente. La relación está establecida a través del campo `IDCliente` en la tabla `Préstamos`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
+
+**Clientes - Transacciones:**  
+La relación entre `Clientes` y `Transacciones` es similar a las anteriores, siendo también una relación uno a muchos. Un cliente puede tener múltiples transacciones, pero una transacción pertenece a un único cliente. La relación está establecida a través del campo `IDCliente` en la tabla `Transacciones`, que es una clave externa que hace referencia al `IDCliente` en la tabla `Clientes`.
+
+**Préstamos - DetallePréstamo:**  
+La tabla `DetallePréstamo` tiene una relación uno a muchos con la tabla `Préstamos`. Un préstamo puede tener múltiples detalles de cuotas de pago, pero un detalle de cuota de pago pertenece a un único préstamo. La relación está establecida a través del campo `IDPréstamo` en la tabla `DetallePréstamo`, que es una clave externa que hace referencia al `IDPréstamo` en la tabla `Préstamos`.
+
+
+## ***Cronograma***
 
 |<span style="color: Blue;">**_Fase_** </span>|<span style="color: Brown;">**_Actividad_** </span>|<span style="color: Orange;">**_Duración_** </span>|<span style="color: Purple;">**_Responsables_** </span>|<span style="color: Green;">**_Inicio_** </span>|<span style="color: Red;">**_Fin_** </span>|
 |-----------------------------|-----------------------------------------|-----------|---------------------------|------------|------------|
