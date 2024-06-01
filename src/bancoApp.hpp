@@ -20,7 +20,7 @@ private:
 public:
     BancoApp();
     ~BancoApp();
-
+    void mostrarInformacionGeneral();
     void registrarCliente();
     int generarIDCliente();
     void obtenerPrestamosActivos(int IDCliente);
