@@ -5,13 +5,8 @@ using namespace std;
 
 int main() {
     BancoApp app;
-
-    if (app.comprobarConexion()) {
-        cout << "Conexión a la base de datos exitosa." << endl;
-    } else {
-        cout << "Error al conectar con la base de datos." << endl;
-        return 1; // Salir si no se puede conectar
-    }
+    int min = 0;  // Valor mínimo del rango
+    int max = 99999999;  // Valor máximo del rango
 
     int opcion;
 
@@ -27,7 +22,7 @@ int main() {
             int IDCliente;
 
             do {
-                cout << "1. Registrar Cliente\n";
+                cout << "\n1. Registrar Cliente\n";
                 cout << "2. Verificar Cliente\n";
                 cout << "3. Obtener Prestamos Activos\n";
                 cout << "4. Obtener Saldos\n";
@@ -39,9 +34,12 @@ int main() {
 
                 switch(subOpcion) {
                     case 1:
-                        cout << "\nRegistrando Cliente... \n" << endl;
+                    app.registrarCliente();
+                    break;
                     case 2:
-                        cout << "\nIngrese el ID del Cliente: \n";
+                        cout << "Ingrese el ID del Cliente: ";
+                        cin >> IDCliente;
+                        app.clienteExiste(IDCliente);
                         break;
                     case 3:
                         cout << "\nIngrese el ID del Cliente: \n";

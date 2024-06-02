@@ -15,18 +15,17 @@ private:
     sql::mysql::MySQL_Driver *driver;
     sql::Connection *con;
 
-    bool clienteExiste(int IDCliente);
+    
 
 public:
     BancoApp();
     ~BancoApp();
     void mostrarInformacionGeneral();
+    bool clienteExiste(int IDCliente);
     void registrarCliente();
-    int generarIDCliente();
     void obtenerPrestamosActivos(int IDCliente);
     void obtenerSaldos(int IDCliente);
     void obtenerCuotasPendientes(int IDPrestamo);
-    bool comprobarConexion();
 };
 
 #endif // BANCOAPP_HPP
