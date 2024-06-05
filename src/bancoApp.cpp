@@ -19,8 +19,8 @@ void BancoApp::mostrarInformacionGeneral() {
     cout << "\n ------------------------------------------------------------------------\n\n";
     cout << "\nBienvenido al Banco UCR\n";
     cout << "Tipos de préstamos disponibles:\n";
-    cout << "1. Préstamo Personal: Tasa de interés 3%\n";
-    cout << "   Un préstamo personal puede ser utilizado para cualquier gasto personal.\n";
+    cout << "1. Préstamo Personal: Tasa de interés 18%\n";
+    cout << "   Un préstamo personal puede ser utilizado para cualquier gasto personal. Desde $400 hasta $20000 con una tasa de interés entre el 18% al 26%\n";
     cout << "2. Préstamo Hipotecario: Tasa de interés 7%\n";
     cout << "   Un préstamo hipotecario está destinado a la compra de bienes inmuebles.\n";
     cout << "3. Préstamo Prendario: Tasa de interés 5%\n";
@@ -32,29 +32,29 @@ void BancoApp::mostrarInformacionGeneral() {
 
 bool BancoApp::clienteExiste(int IDCliente) {
     try {
-        sql::PreparedStatement* pstmt = con->prepareStatement("SELECT * FROM Clientes WHERE IDCliente = ?");
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT * FROM Clientes WHERE IDCliente = ?");
         pstmt->setInt(1, IDCliente);
-        sql::ResultSet* res = pstmt->executeQuery();
+        sql::ResultSet *res = pstmt->executeQuery();
 
         if (res->next()) {
-            cout << "Cliente encontrado:" << endl;
-            cout << "ID: " << res->getInt("IDCliente") << endl;
-            cout << "Nombre: " << res->getString("Nombre") << endl;
-            cout << "Apellido: " << res->getString("Apellido") << endl;
-            cout << "Cedula: " << res->getString("NumeroCedula") << endl;
-            cout << "Telefono: " << res->getString("Telefono") << endl;
+            cout << "Cliente encontrado:\n";
+            cout << "ID: " << res->getInt("IDCliente") << "\n";
+            cout << "Nombre: " << res->getString("Nombre") << "\n";
+            cout << "Apellido: " << res->getString("Apellido") << "\n";
+            cout << "Cedula: " << res->getString("NumeroCedula") << "\n";
+            cout << "Telefono: " << res->getString("Telefono") << "\n";
+            delete res;
+            delete pstmt;
+            return true;  // Cliente encontrado
         } else {
-            cout <<"Cliente no encontrado" << endl;
+            delete res;
+            delete pstmt;
+            return false;  // Cliente no encontrado
         }
-
-        delete pstmt;
-        
-        
-        return res->next();
     } catch (sql::SQLException &e) {
-        cout << "Error al verificar la existencia del cliente: " << e.what() << endl;
-        return false;
-    }
+        cout << "Error al verificar el cliente: " << e.what() << endl;
+        return false;  // Error al verificar el cliente
+}
 }
 
 void BancoApp::registrarCliente() {
@@ -93,3 +93,125 @@ void BancoApp::registrarCliente() {
     }
 }
 
+void BancoApp::realizarDeposito() {
+    try {
+        int IDCliente;
+        string tipoCuenta;
+        double monto;
+
+        cout << "Ingrese el ID del Cliente: ";
+        cin >> IDCliente;
+        if (!clienteExiste(IDCliente)) {
+            cout << "Cliente no encontrado. Operación cancelada." << endl;
+            return;
+        }
+
+        cout << "Ingrese el tipo de cuenta (Dolares/Colones): ";
+        cin >> tipoCuenta;
+        cout << "Ingrese el monto a depositar: ";
+        cin >> monto;
+
+        sql::PreparedStatement *pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo + ? WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setDouble(1, monto);
+        pstmt->setInt(2, IDCliente);
+        pstmt->setString(3, tipoCuenta);
+        pstmt->execute();
+
+        delete pstmt;
+        cout << "Depósito realizado exitosamente." << endl;
+    } catch (sql::SQLException &e) {
+        cout << "Error al realizar el depósito: " << e.what() << endl;
+    }
+}
+
+void BancoApp::realizarTransferencia() {
+    try {
+        int IDClienteOrigen, IDClienteDestino;
+        string tipoCuentaOrigen, tipoCuentaDestino;
+        double monto;
+
+        cout << "Ingrese el ID del Cliente origen: ";
+        cin >> IDClienteOrigen;
+        if (!clienteExiste(IDClienteOrigen)) {
+            cout << "Cliente origen no encontrado. Operación cancelada." << endl;
+            return;
+        }
+
+        cout << "Ingrese el tipo de cuenta origen (Dolares/Colones): ";
+        cin >> tipoCuentaOrigen;
+
+        cout << "Ingrese el ID del Cliente destino: ";
+        cin >> IDClienteDestino;
+        if (!clienteExiste(IDClienteDestino)) {
+            cout << "Cliente destino no encontrado. Operación cancelada." << endl;
+            return;
+        }
+
+        cout << "Ingrese el tipo de cuenta destino (Dolares/Colones): ";
+        cin >> tipoCuentaDestino;
+
+        cout << "Ingrese el monto a transferir: ";
+        cin >> monto;
+
+        // Verificar que la cuenta origen tenga suficiente saldo
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT Saldo FROM Cuentas WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setInt(1, IDClienteOrigen);
+        pstmt->setString(2, tipoCuentaOrigen);
+        sql::ResultSet *res = pstmt->executeQuery();
+
+        if (res->next()) {
+            double saldoOrigen = res->getDouble("Saldo");
+            if (saldoOrigen < monto) {
+                cout << "Saldo insuficiente en la cuenta origen. Operación cancelada." << endl;
+                delete res;
+                delete pstmt;
+                return;
+            }
+        } else {
+            cout << "Cuenta origen no encontrada. Operación cancelada." << endl;
+            delete res;
+            delete pstmt;
+            return;
+        }
+
+        delete res;
+        delete pstmt;
+
+        // Realizar la transferencia
+        pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo - ? WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setDouble(1, monto);
+        pstmt->setInt(2, IDClienteOrigen);
+        pstmt->setString(3, tipoCuentaOrigen);
+        pstmt->execute();
+
+        pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo + ? WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setDouble(1, monto);
+        pstmt->setInt(2, IDClienteDestino);
+        pstmt->setString(3, tipoCuentaDestino);
+        pstmt->execute();
+
+        delete pstmt;
+        cout << "Transferencia realizada exitosamente." << endl;
+    } catch (sql::SQLException &e) {
+        cout << "Error al realizar la transferencia: " << e.what() << endl;
+    }
+}
+void BancoApp::obtenerSaldos(int IDCliente) {
+    try {
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT TipoCuenta, Saldo FROM Cuentas WHERE IDCliente = ?");
+        pstmt->setInt(1, IDCliente);
+        sql::ResultSet *res = pstmt->executeQuery();
+
+        cout << "Saldos de las cuentas del cliente con ID " << IDCliente << ":\n";
+        while (res->next()) {
+            string tipoCuenta = res->getString("TipoCuenta");
+            double saldo = res->getDouble("Saldo");
+            cout << "Tipo de cuenta: " << tipoCuenta << ", Saldo: " << saldo << endl;
+        }
+
+        delete res;
+        delete pstmt;
+    } catch (sql::SQLException &e) {
+        cout << "Error al obtener los saldos: " << e.what() << endl;
+    }
+}

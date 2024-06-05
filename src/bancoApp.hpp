@@ -15,8 +15,6 @@ private:
     sql::mysql::MySQL_Driver *driver;
     sql::Connection *con;
 
-    
-
 public:
     BancoApp();
     ~BancoApp();
@@ -26,6 +24,8 @@ public:
     void obtenerPrestamosActivos(int IDCliente);
     void obtenerSaldos(int IDCliente);
     void obtenerCuotasPendientes(int IDPrestamo);
+    void realizarDeposito();
+    void realizarTransferencia();
 };
 
 #endif // BANCOAPP_HPP

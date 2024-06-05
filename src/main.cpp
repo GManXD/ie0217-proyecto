@@ -27,7 +27,8 @@ int main() {
                 cout << "3. Obtener Prestamos Activos\n";
                 cout << "4. Obtener Saldos\n";
                 cout << "5. Obtener Cuotas Pendientes\n";
-                cout << "6. Regresar al Menú Principal\n";
+                cout << "6. Depositos y transferencias \n";
+                cout << "7. Regresar al Menú Principal\n";
                 cout << "Seleccione una opción: ";
                 cout << "\n ------------------------------------------------------------------------\n\n";
                 cin >> subOpcion;
@@ -46,10 +47,36 @@ int main() {
                         break;
                     case 4:
                         cout << "\nIngrese el ID del Cliente: \n";
+                        app.obtenerSaldos(IDCliente);
                         break;
                     case 5:
                         cout << "\nIngrese el ID del Prestamo: \n";
                     case 6:
+                        int opcionDeposito;
+                        do {
+                            cout << "\n1. Realizar depósito\n";
+                            cout << "2. Realizar transferencia\n";
+                            cout << "3. Regresar al menú anterior\n";
+                            cout << "Seleccione una opción: ";
+                            cin >> opcionDeposito;
+
+                            switch (opcionDeposito) {
+                                case 1:
+                                    app.realizarDeposito();
+                                    break;
+                                case 2:
+                                    app.realizarTransferencia();
+                                    break;
+                                case 3:
+                                    cout << "Regresando al menú anterior" << endl;
+                                    break;
+                                default:
+                                    cout << "Opción no válida. Intente de nuevo." << endl;
+                                    break;
+                            }
+                        } while (opcionDeposito != 3);
+                        break;
+                    case 7:
                         cout << "\nRegresando al menú principal. \n" << endl;
                         break;
                     default:
