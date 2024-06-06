@@ -9,10 +9,59 @@ BancoApp::BancoApp() {
     driver = sql::mysql::get_mysql_driver_instance();
     con = driver->connect("database-gestion-bancaria-proyecto.cfco6sequqsn.us-east-2.rds.amazonaws.com", "admin", "PBiKlEfqXUdOLsEskVJi");
     con->setSchema("gestion_bancaria");
+    srand(time(0));
 }
 
 BancoApp::~BancoApp() {
     delete con;
+}
+
+
+int BancoApp::generarIDCliente() {
+    int IDCliente;
+    bool idExiste;
+
+    do {
+        IDCliente = rand() % 10000; // Generar un ID aleatorio entre 0 y 9999
+        idExiste = clienteExiste(IDCliente);
+    } while (idExiste);
+
+    return IDCliente;
+}
+
+int BancoApp::generarIDCuenta() {
+    int IDCuenta;
+    bool idExiste;
+    int intentos = 0;
+    const int maxIntentos = 100000; // Aumentar el rango para reducir la probabilidad de colisión
+
+    do {
+        IDCuenta = rand() % maxIntentos; // Generar un ID aleatorio entre 0 y maxIntentos-1
+        idExiste = cuentaExiste(IDCuenta);
+        intentos++;
+    } while (idExiste && intentos < maxIntentos);
+
+    if (intentos == maxIntentos) {
+        throw runtime_error("No se pudo generar un ID de cuenta único.");
+    }
+
+    return IDCuenta;
+}
+bool BancoApp::cuentaExiste(int IDCuenta) {
+    try {
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT * FROM Cuentas WHERE IDCuenta = ?");
+        pstmt->setInt(1, IDCuenta);
+        sql::ResultSet *res = pstmt->executeQuery();
+
+        bool existe = res->next();
+        
+        delete res;
+        delete pstmt;
+        return existe;
+    } catch (sql::SQLException &e) {
+        cout << "Error al verificar la cuenta: " << e.what() << endl;
+        return false;  // Error al verificar la cuenta
+    }
 }
 
 void BancoApp::mostrarInformacionGeneral() {
@@ -57,6 +106,8 @@ bool BancoApp::clienteExiste(int IDCliente) {
 }
 }
 
+
+
 void BancoApp::registrarCliente() {
     string nombre, apellido, cedula, telefono;
     cout << "Ingrese Nombre: ";
@@ -69,29 +120,45 @@ void BancoApp::registrarCliente() {
     cin >> telefono;
 
     try {
-        sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Clientes (Nombre, Apellido, NumeroCedula, Telefono) VALUES (?, ?, ?, ?)");
-        pstmt->setString(1, nombre);
-        pstmt->setString(2, apellido);
-        pstmt->setString(3, cedula);
-        pstmt->setString(4, telefono);
+        int IDCliente = generarIDCliente(); // Generar un ID de cliente único
+
+        sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Clientes (IDCliente, Nombre, Apellido, NumeroCedula, Telefono) VALUES (?, ?, ?, ?, ?)");
+        pstmt->setInt(1, IDCliente);
+        pstmt->setString(2, nombre);
+        pstmt->setString(3, apellido);
+        pstmt->setString(4, cedula);
+        pstmt->setString(5, telefono);
+        pstmt->execute();
+        delete pstmt;
+
+        // Generar IDs de cuenta únicos para las cuentas en dólares y colones
+        int IDCuentaDolares = generarIDCuenta();
+        int IDCuentaColones = generarIDCuenta();
+
+        // Crear cuentas en dólares y colones para el nuevo cliente
+        pstmt = con->prepareStatement("INSERT INTO Cuentas (IDCuenta, IDCliente, TipoCuenta, Saldo) VALUES (?, ?, ?, ?)");
+        pstmt->setInt(1, IDCuentaDolares);
+        pstmt->setInt(2, IDCliente);
+        pstmt->setString(3, "Dolares");
+        pstmt->setDouble(4, 0.0);
         pstmt->execute();
 
-        delete pstmt; // Cerrar el PreparedStatement antes de ejecutar la siguiente consulta
+        pstmt->setInt(1, IDCuentaColones);
+        pstmt->setString(3, "Colones");
+        pstmt->execute();
 
-        // Obtener el ID del cliente recién registrado
-        pstmt = con->prepareStatement("SELECT LAST_INSERT_ID()");
-        sql::ResultSet* res = pstmt->executeQuery();
-        res->next();
-        int IDCliente = res->getInt(1);
+        delete pstmt;
 
         cout << "Registro exitoso, su ID de cliente es: " << IDCliente << endl;
-
-        delete res;
-        delete pstmt;
+        cout << "ID de cuenta en Dolares: " << IDCuentaDolares << endl;
+        cout << "ID de cuenta en Colones: " << IDCuentaColones << endl;
     } catch (sql::SQLException &e) {
         cout << "Error al registrar el cliente: " << e.what() << endl;
+    } catch (runtime_error &e) {
+        cout << "Error: " << e.what() << endl;
     }
 }
+
 
 void BancoApp::realizarDeposito() {
     try {

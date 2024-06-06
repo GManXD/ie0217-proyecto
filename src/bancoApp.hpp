@@ -40,7 +40,10 @@ public:
     BancoApp();
     ~BancoApp();
     void mostrarInformacionGeneral();
+    int generarIDCliente();
+    int generarIDCuenta();
     bool clienteExiste(int IDCliente);
+    bool cuentaExiste(int IDCuenta);
     void registrarCliente();
     void obtenerPrestamosActivos(int IDCliente);
     void obtenerSaldos(int IDCliente);

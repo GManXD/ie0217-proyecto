@@ -5,8 +5,6 @@ using namespace std;
 
 int main() {
     BancoApp app;
-    int min = 0;  // Valor mínimo del rango
-    int max = 99999999;  // Valor máximo del rango
 
     int opcion;
 
@@ -28,7 +26,7 @@ int main() {
                 cout << "3. Obtener Prestamos Activos\n";
                 cout << "4. Obtener Saldos\n";
                 cout << "5. Obtener Cuotas Pendientes\n";
-                cout << "6. Depositos y transferencias \n";
+                cout << "6. Depositos y transferencias\n";
                 cout << "7. Regresar al Menú Principal\n";
                 cout << "Seleccione una opción: ";
                 cout << "\n ------------------------------------------------------------------------\n\n";
@@ -41,13 +39,19 @@ int main() {
                     case VERIFICAR_CLIENTE:
                         cout << "Ingrese el ID del Cliente: ";
                         cin >> IDCliente;
-                        app.clienteExiste(IDCliente);
+                        if (app.clienteExiste(IDCliente)) {
+                            cout << "El cliente con ID " << IDCliente << " existe." << endl;
+                        } else {
+                            cout << "El cliente con ID " << IDCliente << " no existe." << endl;
+                        }
                         break;
                     case PRESTAMOS_ACTIVOS:
                         cout << "\nIngrese el ID del Cliente: \n";
+                        // Lógica para obtener préstamos activos
                         break;
                     case SALDOS:
                         cout << "\nIngrese el ID del Cliente: \n";
+                        cin >> IDCliente;
                         app.obtenerSaldos(IDCliente);
                         break;
                     case CUOTAS_PENTIENTES:
@@ -84,7 +88,7 @@ int main() {
                         cout << "\nOpción no válida. \n" << endl;
                         break;
                 }
-            } while(subOpcion != 6);
+            } while(subOpcion != 7);
         } else if (opcion == 2) {
             app.mostrarInformacionGeneral();
         } else if (opcion != 3) {
