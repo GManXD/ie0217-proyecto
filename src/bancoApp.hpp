@@ -24,10 +24,9 @@ enum subopciones{
 };
 
 enum opcionesDeposito{
-    // Opciones disponibles para el menu
     DEPOSITAR = 1,
     TRANSFERENCIA, //2
-    REGRESAR,  // 3
+    REGRESAR_DEPOSITO,  // Cambiado de REGRESAR a REGRESAR_DEPOSITO
     OPCIONES_MAX
 };
 

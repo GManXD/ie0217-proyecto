@@ -72,7 +72,7 @@ int main() {
                                 case TRANSFERENCIA:
                                     app.realizarTransferencia();
                                     break;
-                                case REGRESAR:
+                                case REGRESAR_DEPOSITO:
                                     cout << "Regresando al menú anterior" << endl;
                                     break;
                                 default:
