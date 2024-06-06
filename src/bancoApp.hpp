@@ -10,6 +10,27 @@
 #include <cppconn/prepared_statement.h>
 #include <string>
 
+
+enum subopciones{
+    // Opciones disponibles para el menu
+    REGISTRAR_CLIENTE = 1,
+    VERIFICAR_CLIENTE, //2
+    PRESTAMOS_ACTIVOS,  // 3
+    SALDOS, // 4
+    CUOTAS_PENTIENTES,  // 5
+    DEPOSITOS_TRANSFERENCIAS,  // 6
+    REGRESAR,  // 7
+    OPCIONES_MAX
+};
+
+enum opcionesDeposito{
+    // Opciones disponibles para el menu
+    DEPOSITAR = 1,
+    TRANSFERENCIA, //2
+    REGRESAR,  // 3
+    OPCIONES_MAX
+};
+
 class BancoApp {
 private:
     sql::mysql::MySQL_Driver *driver;

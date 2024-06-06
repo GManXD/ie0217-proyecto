@@ -17,6 +17,7 @@ int main() {
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
+        
         if (opcion == 1) {
             int subOpcion;
             int IDCliente;
@@ -34,24 +35,24 @@ int main() {
                 cin >> subOpcion;
 
                 switch(subOpcion) {
-                    case 1:
+                    case REGISTRAR_CLIENTE:
                     app.registrarCliente();
                     break;
-                    case 2:
+                    case VERIFICAR_CLIENTE:
                         cout << "Ingrese el ID del Cliente: ";
                         cin >> IDCliente;
                         app.clienteExiste(IDCliente);
                         break;
-                    case 3:
+                    case PRESTAMOS_ACTIVOS:
                         cout << "\nIngrese el ID del Cliente: \n";
                         break;
-                    case 4:
+                    case SALDOS:
                         cout << "\nIngrese el ID del Cliente: \n";
                         app.obtenerSaldos(IDCliente);
                         break;
-                    case 5:
+                    case CUOTAS_PENTIENTES:
                         cout << "\nIngrese el ID del Prestamo: \n";
-                    case 6:
+                    case DEPOSITOS_TRANSFERENCIAS:
                         int opcionDeposito;
                         do {
                             cout << "\n1. Realizar depósito\n";
@@ -61,13 +62,13 @@ int main() {
                             cin >> opcionDeposito;
 
                             switch (opcionDeposito) {
-                                case 1:
+                                case DEPOSITAR:
                                     app.realizarDeposito();
                                     break;
                                 case 2:
-                                    app.realizarTransferencia();
+                                    TRANSFERENCIA.realizarTransferencia();
                                     break;
-                                case 3:
+                                case REGRESAR:
                                     cout << "Regresando al menú anterior" << endl;
                                     break;
                                 default:
@@ -76,7 +77,7 @@ int main() {
                             }
                         } while (opcionDeposito != 3);
                         break;
-                    case 7:
+                    case REGRESAR:
                         cout << "\nRegresando al menú principal. \n" << endl;
                         break;
                     default:
