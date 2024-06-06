@@ -65,8 +65,8 @@ int main() {
                                 case DEPOSITAR:
                                     app.realizarDeposito();
                                     break;
-                                case 2:
-                                    TRANSFERENCIA.realizarTransferencia();
+                                case TRANSFERENCIA:
+                                    app.realizarTransferencia();
                                     break;
                                 case REGRESAR:
                                     cout << "Regresando al menú anterior" << endl;
