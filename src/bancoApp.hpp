@@ -20,14 +20,14 @@ enum subopciones{
     CUOTAS_PENTIENTES,  // 5
     DEPOSITOS_TRANSFERENCIAS,  // 6
     REGRESAR,  // 7
-    OPCIONES_MAX
+    OPCIONES_MAX_SUB
 };
 
 enum opcionesDeposito{
     DEPOSITAR = 1,
     TRANSFERENCIA, //2
     REGRESAR_DEPOSITO,  // Cambiado de REGRESAR a REGRESAR_DEPOSITO
-    OPCIONES_MAX
+    OPCIONES_MAX_DEP
 };
 
 class BancoApp {
