@@ -65,6 +65,7 @@ bool BancoApp::cuentaExiste(int IDCuenta) {
 }
 
 void BancoApp::mostrarInformacionGeneral() {
+    char opcion;
     cout << "\n ------------------------------------------------------------------------\n\n";
     cout << "\nBienvenido al Banco UCR\n";
     cout << "Tipos de préstamos disponibles:\n";
@@ -76,7 +77,11 @@ void BancoApp::mostrarInformacionGeneral() {
     cout << "   Un préstamo prendario se garantiza con un bien mueble.\n";
     cout << "4. Certificado de Depósito a Plazo (CDP):\n";
     cout << "   Un CDP es un certificado de depósito a corto plazo que ofrece un retorno de interés fijo.\n";
+    cout << "Si desea obtener una tabla de pagos digite el numero del tipo de prestamo, de lo contrario digite 0";
     cout << "\n ------------------------------------------------------------------------\n\n";
+    cin >> opcion;
+
+    cout << "Digite el monto del prestamo. \n";
 }
 
 bool BancoApp::clienteExiste(int IDCliente) {
