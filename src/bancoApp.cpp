@@ -65,23 +65,141 @@ bool BancoApp::cuentaExiste(int IDCuenta) {
 }
 
 void BancoApp::mostrarInformacionGeneral() {
-    char opcion;
+    string opcionPrestamo;
+    int monto;
     cout << "\n ------------------------------------------------------------------------\n\n";
     cout << "\nBienvenido al Banco UCR\n";
-    cout << "Tipos de préstamos disponibles:\n";
-    cout << "1. Préstamo Personal: Tasa de interés 18%\n";
-    cout << "   Un préstamo personal puede ser utilizado para cualquier gasto personal. Desde $400 hasta $20000 con una tasa de interés entre el 18% al 26%\n";
-    cout << "2. Préstamo Hipotecario: Tasa de interés 7%\n";
+    cout << "Tipos de préstamos y certificados disponibles:\n";
+    cout << "1. Préstamo Personal: \n";
+    cout << "   Un préstamo personal puede ser utilizado para cualquier gasto personal. \n";
+    cout << "2. Préstamo Hipotecario: \n";
     cout << "   Un préstamo hipotecario está destinado a la compra de bienes inmuebles.\n";
-    cout << "3. Préstamo Prendario: Tasa de interés 5%\n";
+    cout << "3. Préstamo Prendario: \n";
     cout << "   Un préstamo prendario se garantiza con un bien mueble.\n";
     cout << "4. Certificado de Depósito a Plazo (CDP):\n";
     cout << "   Un CDP es un certificado de depósito a corto plazo que ofrece un retorno de interés fijo.\n";
-    cout << "Si desea obtener una tabla de pagos digite el numero del tipo de prestamo, de lo contrario digite 0";
-    cout << "\n ------------------------------------------------------------------------\n\n";
-    cin >> opcion;
+    cout << "Si desea más información sobre un préstamo digite el numero de prestamo, de lo contrario digite 0";
+    cout << "\n\n ------------------------------------------------------------------------\n\n";
+    cin >> opcionPrestamo;
+    if (opcionPrestamo == "1"){
+        int interes = INTERES_PERSONAL
+        int cuotas = CUOTAS_PERSONALES
+        string personalizar;
+        cout << "Un préstamo personal puede ser utilizado para cualquier gasto personal.\n";
+        cout << "Opciones predefinidas para prestamos personales: \n";
+        cout << "Tasa de interés fija: " << interes << "% mensual\n";
+        cout << "Cantidad de cuotas: " << cuotas << "\n";
+        cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
+        cin >> personalizar;
+        if (personalizar == "1"){
+            cout << "Digite la taza de interes mensual: ";
+            cin >> interes;
+            cout << "Digite la cantidad de cuotas: ";
+            cin >> cuotas;
+            cout << "Digite el monto del prestamo: ";
+            cin >> monto;
+        }
+        else if (personalizar == "0"){
+            cout << "Digite el monto del prestamo: ";
+            cin >> monto;
+        }
+        else{
+            cout << "Opción no valida";
+        }
 
-    cout << "Digite el monto del prestamo. \n";
+        cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
+    }
+    else if (opcionPrestamo == "2"){
+        int interes = INTERES_HIPOTECARIO
+        int cuotas = CUOTAS_HIPOTECARIO
+        string personalizar;
+        cout << "Un préstamo hipotecario está destinado a la compra de bienes inmuebles.\n";
+        cout << "Opciones predefinidas para prestamos hipotecarios: \n";
+        cout << "Tasa de interés fija: " << interes << "% mensual\n";
+        cout << "Cantidad de cuotas: " << cuotas << "\n";
+        cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
+        cin >> personalizar;
+        if (personalizar == "1"){
+            cout << "Digite la taza de interes mensual: ";
+            cin >> interes;
+            cout << "Digite la cantidad de cuotas: ";
+            cin >> cuotas;
+            cout << "Digite el monto del prestamo: ";
+            cin >> monto;
+        }
+        else if (personalizar == "0"){
+            cout << "Digite el monto del prestamo: ";
+            cin >> monto;
+        }
+        else{
+            cout << "Opción no valida";
+        }
+
+        cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
+        
+    }
+    else if (opcionPrestamo == "3"){
+        int interes = INTERES_PRENDARIO
+        int cuotas = CUOTAS_PRENDARIO
+        string personalizar;
+        cout << "Un préstamo prendario se garantiza con un bien mueble.\n";
+        cout << "Opciones predefinidas para prestamos prendarios: \n";
+        cout << "Tasa de interés fija: " << interes << "% mensual\n";
+        cout << "Cantidad de cuotas: " << cuotas << "\n";
+        cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
+        cin >> personalizar;
+        if (personalizar == "1"){
+            cout << "Digite la taza de interes mensual: ";
+            cin >> interes;
+            cout <<"Digite la cantidad de cuotas: ";
+            cin >> cuotas;
+            cout <<"Digite el monto del prestamo: ";
+            cin >> monto;
+        }
+        else if (personalizar == "0"){
+            cout << "Digite el monto del prestamo: ";
+            cin >> monto;
+        }
+        else{
+            cout << "Opción no valida";
+        }
+
+        cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
+    }
+    else if (opcionPrestamo == "4"){
+        int interes = INTERES_CERTIFICADO_PLAZO
+        int cuotas = PLAZO_CERTIFICADO
+        string personalizar;
+        cout << "Un CDP es un certificado de depósito a corto plazo que ofrece un retorno de interés fijo.\n";
+        cout << "Opciones predefinidas para certificados de depósito a corto plazo: \n";
+        cout << "Tasa de interés : " << interes << "% anual\n";
+        cout << "Plazo : " << cuotas << "\n";
+        cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
+        cin >> personalizar;
+        if (personalizar == "1"){
+            cout << "Digite la taza de interes anual: ";
+            cin >> interes;
+            cout << "Digite la cantidad de cuotas: ";
+            cin >> cuotas;
+            cout << "Digite el monto del certificado: ";
+            cin >> monto;
+        }
+        else if (personalizar == "0"){
+            cout << "Digite el monto del certificado: ";
+            cin >> monto;
+        }
+        else{
+            cout << "Opción no valida";
+        }
+
+        cout << "Al final del plazo de " << cuotas << " meses, recibirá un monto de : ";
+    }
+    else if (opcionPrestamo == "0"){
+        cout << "Regresando al menú principal...\n"; 
+    }
+    else{
+        cout << "Opcion no valida\n";
+    }
 }
 
 bool BancoApp::clienteExiste(int IDCliente) {

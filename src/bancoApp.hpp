@@ -10,6 +10,20 @@
 #include <cppconn/prepared_statement.h>
 #include <string>
 
+// Opciones predefinidas para los tipos de préstamos
+
+// Préstamo personal
+#define INTERES_PERSONAL 18;  // Taza de interés mensual
+#define CUOTAS_PERSONALES 36;
+// Préstamo Hipotecario
+#define INTERES_HIPOTECARIO 7;    // Taza de interés mensual
+#define CUOTAS_HIPOTECARIO 240 ;
+// Préstamo Prendario
+#define INTERES_PRENDARIO 5;  // Taza de interés mensual
+#define CUOTAS_PRENDARIO 18;
+// Certificado de deposito a plazo
+#define INTERES_CERTIFICADO_PLAZO 2;  // Taza de interes anual
+#define PLAZO_CERTIFICADO 8;
 
 enum subopciones{
     // Opciones disponibles para el menu
