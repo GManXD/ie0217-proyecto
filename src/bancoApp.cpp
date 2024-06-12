@@ -47,6 +47,38 @@ int BancoApp::generarIDCuenta() {
 
     return IDCuenta;
 }
+
+
+int BancoApp::generarIDTransaccion() {
+    int IDTransaccion;
+    bool idExiste;
+
+    do {
+        IDTransaccion = rand() % 100000; // Generar un ID aleatorio entre 0 y 99999
+        idExiste = transaccionExiste(IDTransaccion);
+    } while (idExiste);
+
+    return IDTransaccion;
+}
+
+bool BancoApp::transaccionExiste(int IDTransaccion) {
+    try {
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT * FROM Transacciones WHERE IDTransaccion = ?");
+        pstmt->setInt(1, IDTransaccion);
+        sql::ResultSet *res = pstmt->executeQuery();
+
+        bool existe = res->next();
+        
+        delete res;
+        delete pstmt;
+        return existe;
+    } catch (sql::SQLException &e) {
+        cout << "Error al verificar la transacción: " << e.what() << endl;
+        return false;  // Error al verificar la transacción
+    }
+}
+
+
 bool BancoApp::cuentaExiste(int IDCuenta) {
     try {
         sql::PreparedStatement *pstmt = con->prepareStatement("SELECT * FROM Cuentas WHERE IDCuenta = ?");
@@ -308,6 +340,19 @@ void BancoApp::realizarDeposito() {
         pstmt->execute();
 
         delete pstmt;
+
+
+        int IDTransaccion = generarIDTransaccion();
+        pstmt = con->prepareStatement("INSERT INTO Transacciones (IDTransaccion, IDCliente, TipoTransaccion, Monto, FechaTransaccion, IDCuentaDestino) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, ?)");
+        pstmt->setInt(1, IDTransaccion);
+        pstmt->setInt(2, IDCliente);
+        pstmt->setString(3, "Depósito");
+        pstmt->setDouble(4, monto);
+        pstmt->setInt(5, IDCliente);
+        pstmt->execute();
+        delete pstmt;
+
+
         cout << "Depósito realizado exitosamente." << endl;
     } catch (sql::SQLException &e) {
         cout << "Error al realizar el depósito: " << e.what() << endl;
@@ -380,7 +425,22 @@ void BancoApp::realizarTransferencia() {
         pstmt->setString(3, tipoCuentaDestino);
         pstmt->execute();
 
-        delete pstmt;
+
+        int IDTransaccion = generarIDTransaccion();
+        cout << "Insertando transacción con los siguientes datos:" << endl;
+        cout << "IDTransaccion: " << IDTransaccion << endl;
+        cout << "IDCliente: " << IDClienteOrigen << endl;
+        cout << "TipoTransaccion: Transferencia" << endl;
+        cout << "Monto: " << monto << endl;
+        cout << "IDCuentaDestino: " << IDClienteDestino << endl;
+
+        pstmt = con->prepareStatement("INSERT INTO Transacciones (IDTransaccion, IDCliente, TipoTransaccion, Monto, FechaTransaccion, IDCuentaDestino) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, ?)");
+        pstmt->setInt(1, IDTransaccion);
+        pstmt->setInt(2, IDClienteOrigen);
+        pstmt->setString(3, "Transferencia");
+        pstmt->setDouble(4, monto);
+        pstmt->setInt(5, IDClienteDestino);
+        pstmt->execute();
         cout << "Transferencia realizada exitosamente." << endl;
     } catch (sql::SQLException &e) {
         cout << "Error al realizar la transferencia: " << e.what() << endl;

@@ -55,6 +55,8 @@ public:
     void mostrarInformacionGeneral();
     int generarIDCliente();
     int generarIDCuenta();
+    int generarIDTransaccion();
+    bool transaccionExiste(int IDTransaccion);
     bool clienteExiste(int IDCliente);
     bool cuentaExiste(int IDCuenta);
     void registrarCliente();
