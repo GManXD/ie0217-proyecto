@@ -465,3 +465,40 @@ void BancoApp::obtenerSaldos(int IDCliente) {
         cout << "Error al obtener los saldos: " << e.what() << endl;
     }
 }
+
+void BancoApp::imprimirHistorialTransacciones() {
+    try {
+        int IDCliente;
+        
+        cout << "Ingrese el ID del Cliente: ";
+        cin >> IDCliente;
+        if (!clienteExiste(IDCliente)) {
+            cout << "Cliente no encontrado. Operación cancelada." << endl;
+            return;
+        }
+
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT IDTransaccion, TipoTransaccion, Monto, FechaTransaccion, IDCuentaDestino FROM Transacciones WHERE IDCliente = ?");
+        pstmt->setInt(1, IDCliente);
+        sql::ResultSet *res = pstmt->executeQuery();
+
+        cout << "Historial de Transacciones para el Cliente con ID " << IDCliente << ":" << endl;
+        cout << "IDTransaccion | TipoTransaccion | Monto | FechaTransaccion | IDCuentaDestino" << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        
+        while (res->next()) {
+            int IDTransaccion = res->getInt("IDTransaccion");
+            string TipoTransaccion = res->getString("TipoTransaccion");
+            double Monto = res->getDouble("Monto");
+            string FechaTransaccion = res->getString("FechaTransaccion");
+            int IDCuentaDestino = res->getInt("IDCuentaDestino");
+
+            cout << IDTransaccion << " | " << TipoTransaccion << " | " << Monto << " | " << FechaTransaccion << " | " << IDCuentaDestino << endl;
+        }
+
+        delete res;
+        delete pstmt;
+
+    } catch (sql::SQLException &e) {
+        cout << "Error al obtener el historial de transacciones: " << e.what() << endl;
+    }
+}

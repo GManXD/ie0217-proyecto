@@ -27,7 +27,8 @@ int main() {
                 cout << "4. Obtener Saldos\n";
                 cout << "5. Obtener Cuotas Pendientes\n";
                 cout << "6. Depositos y transferencias\n";
-                cout << "7. Regresar al Menú Principal\n";
+                cout << "7. Historial de transacciones\n";
+                cout << "8. Regresar al Menú Principal\n";
                 cout << "Seleccione una opción: ";
                 cout << "\n ------------------------------------------------------------------------\n\n";
                 cin >> subOpcion;
@@ -81,6 +82,10 @@ int main() {
                             }
                         } while (opcionDeposito != 3);
                         break;
+
+                    case HISTORIAL_TRANSACCIONES:
+                        app.imprimirHistorialTransacciones();
+                        break;
                     case REGRESAR:
                         cout << "\nRegresando al menú principal. \n" << endl;
                         break;
@@ -88,7 +93,7 @@ int main() {
                         cout << "\nOpción no válida. \n" << endl;
                         break;
                 }
-            } while(subOpcion != 7);
+            } while(subOpcion != 8);
         } else if (opcion == 2) {
             app.mostrarInformacionGeneral();
         } else if (opcion != 3) {

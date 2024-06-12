@@ -33,7 +33,8 @@ enum subopciones{
     SALDOS, // 4
     CUOTAS_PENTIENTES,  // 5
     DEPOSITOS_TRANSFERENCIAS,  // 6
-    REGRESAR,  // 7
+    HISTORIAL_TRANSACCIONES,  // 7
+    REGRESAR,  // 8
     OPCIONES_MAX_SUB
 };
 
@@ -65,6 +66,7 @@ public:
     void obtenerCuotasPendientes(int IDPrestamo);
     void realizarDeposito();
     void realizarTransferencia();
+    void imprimirHistorialTransacciones();
 };
 
 #endif // BANCOAPP_HPP
