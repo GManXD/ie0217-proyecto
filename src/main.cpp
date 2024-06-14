@@ -1,5 +1,6 @@
 #include "bancoApp.hpp"
 #include <iostream>
+#include <limits> // Incluir el encabezado <limits>
 
 using namespace std;
 
@@ -15,7 +16,14 @@ int main() {
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
-        
+        // Verificar si la entrada es inválida
+        if (cin.fail()) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
+            cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
+            continue; // Volver a mostrar el menú
+        }
+
         if (opcion == 1) {
             int subOpcion;
             int IDCliente;
@@ -33,10 +41,18 @@ int main() {
                 cout << "\n ------------------------------------------------------------------------\n\n";
                 cin >> subOpcion;
 
+                // Verificar si la entrada es inválida
+                if (cin.fail()) {
+                    cin.clear(); // Limpiar el estado de error
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
+                    cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
+                    continue; // Volver a mostrar el menú
+                }
+
                 switch(subOpcion) {
                     case REGISTRAR_CLIENTE:
-                    app.registrarCliente();
-                    break;
+                        app.registrarCliente();
+                        break;
                     case VERIFICAR_CLIENTE:
                         cout << "Ingrese el ID del Cliente: ";
                         cin >> IDCliente;
@@ -57,6 +73,8 @@ int main() {
                         break;
                     case CUOTAS_PENTIENTES:
                         cout << "\nIngrese el ID del Prestamo: \n";
+                        // Lógica para obtener cuotas pendientes
+                        break;
                     case DEPOSITOS_TRANSFERENCIAS:
                         int opcionDeposito;
                         do {
@@ -65,6 +83,14 @@ int main() {
                             cout << "3. Regresar al menú anterior\n";
                             cout << "Seleccione una opción: ";
                             cin >> opcionDeposito;
+
+                            // Verificar si la entrada es inválida
+                            if (cin.fail()) {
+                                cin.clear(); // Limpiar el estado de error
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
+                                cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
+                                continue; // Volver a mostrar el menú de depósitos y transferencias
+                            }
 
                             switch (opcionDeposito) {
                                 case DEPOSITAR:
