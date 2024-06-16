@@ -261,7 +261,32 @@ bool BancoApp::clienteExiste(int IDCliente) {
 }
 }
 
+//MODIFICADO PARA VER LOS PRESTAMOS ACTIVOS
+void BancoApp::obtenerPrestamosActivos(int IDCliente) {
+    try {
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT dp.IDPrestamo, dp.NumeroCuota, dp.MontoCuota, dp.FechaVencimiento, dp.EstadoPago "
+                                                              "FROM DetallePrestamo dp "
+                                                              "JOIN Prestamos p ON dp.IDPrestamo = p.IDPrestamo "
+                                                              "WHERE p.IDCliente = ? AND dp.EstadoPago = 'Pendiente'");
+        pstmt->setInt(1, IDCliente);
+        sql::ResultSet *res = pstmt->executeQuery();
 
+        cout << "Préstamos activos para el cliente con ID " << IDCliente << ":\n";
+        while (res->next()) {
+            cout << "ID de Préstamo: " << res->getInt("IDPrestamo") << "\n";
+            cout << "Número de Cuota: " << res->getInt("NumeroCuota") << "\n";
+            cout << "Monto de Cuota: " << res->getDouble("MontoCuota") << "\n";
+            cout << "Fecha de Vencimiento: " << res->getString("FechaVencimiento") << "\n";
+            cout << "Estado de Pago: " << res->getString("EstadoPago") << "\n";
+            cout << "------------------------\n";
+        }
+
+        delete res;
+        delete pstmt;
+    } catch (sql::SQLException &e) {
+        cout << "Error al obtener los préstamos activos: " << e.what() << endl;
+    }
+} //HASTA ACA
 
 void BancoApp::registrarCliente() {
     string nombre, apellido, cedula, telefono;
