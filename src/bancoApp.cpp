@@ -98,6 +98,7 @@ bool BancoApp::cuentaExiste(int IDCuenta) {
 
 void BancoApp::mostrarInformacionGeneral() {
     string opcionPrestamo;
+    string tipoMoneda;
     int monto;
     cout << "\n ------------------------------------------------------------------------\n\n";
     cout << "\nBienvenido al Banco UCR\n";
@@ -124,6 +125,8 @@ void BancoApp::mostrarInformacionGeneral() {
         cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
         cin >> personalizar;
         if (personalizar == "1"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite la taza de interes mensual: ";
             cin >> interes;
             cout << "Digite la cantidad de cuotas: ";
@@ -132,6 +135,8 @@ void BancoApp::mostrarInformacionGeneral() {
             cin >> monto;
         }
         else if (personalizar == "0"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite el monto del prestamo: ";
             cin >> monto;
         }
@@ -152,6 +157,8 @@ void BancoApp::mostrarInformacionGeneral() {
         cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
         cin >> personalizar;
         if (personalizar == "1"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite la taza de interes mensual: ";
             cin >> interes;
             cout << "Digite la cantidad de cuotas: ";
@@ -160,6 +167,8 @@ void BancoApp::mostrarInformacionGeneral() {
             cin >> monto;
         }
         else if (personalizar == "0"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite el monto del prestamo: ";
             cin >> monto;
         }
@@ -181,6 +190,8 @@ void BancoApp::mostrarInformacionGeneral() {
         cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
         cin >> personalizar;
         if (personalizar == "1"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite la taza de interes mensual: ";
             cin >> interes;
             cout <<"Digite la cantidad de cuotas: ";
@@ -189,6 +200,8 @@ void BancoApp::mostrarInformacionGeneral() {
             cin >> monto;
         }
         else if (personalizar == "0"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite el monto del prestamo: ";
             cin >> monto;
         }
@@ -209,6 +222,8 @@ void BancoApp::mostrarInformacionGeneral() {
         cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
         cin >> personalizar;
         if (personalizar == "1"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite la taza de interes anual: ";
             cin >> interes;
             cout << "Digite la cantidad de cuotas: ";
@@ -217,6 +232,8 @@ void BancoApp::mostrarInformacionGeneral() {
             cin >> monto;
         }
         else if (personalizar == "0"){
+            cout << "Digite el tipo de moneda: ";
+            cin >> tipoMoneda;
             cout << "Digite el monto del certificado: ";
             cin >> monto;
         }
