@@ -64,7 +64,8 @@ int main() {
                         break;
                     case PRESTAMOS_ACTIVOS:
                         cout << "\nIngrese el ID del Cliente: \n";
-                        // Lógica para obtener préstamos activos
+                        cin >> IDCliente;
+                        app.obtenerPrestamosActivos(IDCliente);
                         break;
                     case SALDOS:
                         cout << "\nIngrese el ID del Cliente: \n";
