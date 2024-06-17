@@ -10,7 +10,7 @@ int main() {
     int opcion;
 
     do {
-        cout << "1. Atención al Cliente\n";
+        cout << "1. \nAtención al Cliente\n";
         cout << "2. Información General\n";
         cout << "3. Salir\n";
         cout << "Seleccione una opción: ";
