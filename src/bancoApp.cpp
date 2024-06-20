@@ -610,6 +610,8 @@ void BancoApp::realizarTransferencia() {
         int IDClienteOrigen, IDClienteDestino;
         string tipoCuentaOrigen, tipoCuentaDestino;
         double monto;
+        double tasaCambioDolaresAColones = 600.0; // Ejemplo de tasa de cambio (1 dólar = 600 colones)
+        double tasaCambioColonesADolares = 1 / tasaCambioDolaresAColones;
 
         cout << "Ingrese el ID del Cliente origen: ";
         cin >> IDClienteOrigen;
@@ -665,12 +667,23 @@ void BancoApp::realizarTransferencia() {
         pstmt->setString(3, tipoCuentaOrigen);
         pstmt->execute();
 
+        // Convertir el monto si las cuentas son de tipos diferentes
+        if (tipoCuentaOrigen != tipoCuentaDestino) {
+            if (tipoCuentaOrigen == "Dolares" && tipoCuentaDestino == "Colones") {
+                monto *= tasaCambioDolaresAColones;
+            } else if (tipoCuentaOrigen == "Colones" && tipoCuentaDestino == "Dolares") {
+                monto *= tasaCambioColonesADolares;
+            } else {
+                cout << "Tipo de cuenta no válido. Operación cancelada." << endl;
+                return;
+            }
+        }
+
         pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo + ? WHERE IDCliente = ? AND TipoCuenta = ?");
         pstmt->setDouble(1, monto);
         pstmt->setInt(2, IDClienteDestino);
         pstmt->setString(3, tipoCuentaDestino);
         pstmt->execute();
-
 
         int IDTransaccion = generarIDTransaccion();
         cout << "Insertando transacción con los siguientes datos:" << endl;
