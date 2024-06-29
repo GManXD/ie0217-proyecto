@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -15,7 +17,6 @@ BancoApp::BancoApp() {
 BancoApp::~BancoApp() {
     delete con;
 }
-
 
 int BancoApp::generarIDCliente() {
     int IDCliente;
@@ -58,9 +59,6 @@ bool BancoApp::prestamoExiste(int IDPrestamo) {
     }
 }
 
-
-
-
 int BancoApp::generarIDCuenta() {
     int IDCuenta;
     bool idExiste;
@@ -79,7 +77,6 @@ int BancoApp::generarIDCuenta() {
 
     return IDCuenta;
 }
-
 
 int BancoApp::generarIDTransaccion() {
     int IDTransaccion;
@@ -109,7 +106,6 @@ bool BancoApp::transaccionExiste(int IDTransaccion) {
         return false;  // Error al verificar la transacción
     }
 }
-
 
 bool BancoApp::cuentaExiste(int IDCuenta) {
     try {
@@ -145,9 +141,10 @@ void BancoApp::mostrarInformacionGeneral() {
     cout << "   Un préstamo prendario se garantiza con un bien mueble.\n";
     cout << "4. Certificado de Depósito a Plazo (CDP):\n";
     cout << "   Un CDP es un certificado de depósito a corto plazo que ofrece un retorno de interés fijo.\n";
-    cout << "Si desea más información sobre un préstamo digite el numero de prestamo, de lo contrario digite 0";
-    cout << "\n\n ------------------------------------------------------------------------\n\n";
+    cout << "Si desea más información sobre un préstamo digite el numero de prestamo, de lo contrario digite 0: ";
     cin >> opcionPrestamo;
+    cout << "\n\n ------------------------------------------------------------------------\n\n";
+    
     if (opcionPrestamo == "1"){
         int interes = INTERES_PERSONAL
         int cuotas = CUOTAS_PERSONALES
@@ -422,7 +419,7 @@ void BancoApp::mostrarInformacionGeneral() {
         cout << "Opciones predefinidas para certificados de depósito a corto plazo: \n";
         cout << "Tasa de interés : " << interes << "% anual\n";
         cout << "Plazo : " << cuotas << "\n";
-        cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
+        cout << "Si desea personalizar estas opciones digite 1, si desea crear un certificado digite 0: \n";
         cin >> personalizar;
         if (personalizar == "1"){
             cout << "Digite el tipo de moneda: ";
@@ -436,16 +433,13 @@ void BancoApp::mostrarInformacionGeneral() {
 
         }
         else if (personalizar == "0"){
-            cout << "Digite el tipo de moneda: ";
-            cin >> tipoMoneda;
-            cout << "Digite el monto del certificado: ";
-            cin >> monto;
+            this->insertarCertificado();
         }
         else{
             cout << "Opción no valida";
         }
 
-        cout << "Al final del plazo de " << cuotas << " meses, recibirá un monto de : ";
+        cout << "Al final del plazo de " << cuotas << " meses, recibirá un monto de : \n";
     }
     else if (opcionPrestamo == "0"){
         cout << "Regresando al menú principal...\n"; 
@@ -760,4 +754,138 @@ void BancoApp::imprimirHistorialTransacciones() {
     } catch (sql::SQLException &e) {
         cout << "Error al obtener el historial de transacciones: " << e.what() << endl;
     }
+}
+
+void BancoApp::insertarCertificado() {
+    try {
+        int idCertificado, idCliente, plazo_cert;
+        string fechaEmisionStr, fechaVencimientoStr, estado, tipoCuenta;
+        double monto, interes_plazo_cert;
+
+        time_t now = time(0);
+        tm *ltm = localtime(&now);
+        char buffer[11];
+        strftime(buffer, 11, "%Y-%m-%d", ltm);
+        fechaEmisionStr = string(buffer);
+
+        plazo_cert = PLAZO_CERTIFICADO
+        interes_plazo_cert = INTERES_CERTIFICADO_PLAZO
+        fechaVencimientoStr = agregarMeses(plazo_cert);
+
+        cout << "Ingrese el ID del Certificado: ";
+        cin >> idCertificado;
+        if (cin.fail()) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
+            cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
+            return;
+        }
+        cout << endl;
+
+        cout << "Ingrese el ID del Cliente: ";
+        cin >> idCliente;
+        if (cin.fail()) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
+            cout << "\nEntrada no válida. Por favor, ingrese un número. Operación cancelada." << endl;
+            return;
+        }
+        cout << endl;
+        if (!clienteExiste(idCliente)) {
+            cout << "Cliente no encontrado. Operación cancelada." << endl;
+            return;
+        }
+
+        cout << "Ingrese el tipo de cuenta: ";
+        cin >> tipoCuenta;
+        cout << endl;
+
+        cout << "Ingrese el monto del certificado: ";
+        cin >> monto;
+        if (cin.fail()) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
+            cout << "\nEntrada no válida. Por favor, ingrese un número. Operación cancelada." << endl;
+            return;
+        }
+        cout << endl;
+
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT Saldo FROM Cuentas WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setInt(1, idCliente);
+        pstmt->setString(2, tipoCuenta);
+        sql::ResultSet *res = pstmt->executeQuery();
+
+        if (res->next()) {
+            double saldoOrigen = res->getDouble("Saldo");
+            if (saldoOrigen < monto) {
+                cout << "Saldo insuficiente en la cuenta origen. Operación cancelada." << endl;
+                delete res;
+                delete pstmt;
+                return;
+            }
+        } else {
+            cout << "Cuenta origen no encontrada. Operación cancelada." << endl;
+            delete res;
+            delete pstmt;
+            return;
+        }
+
+        delete res;
+        delete pstmt;
+
+        cout << "Ingrese el estado con el que desea crear el certificado: ";
+        cin >> estado;
+        cout << endl;
+
+        pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo - ? WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setDouble(1, monto);
+        pstmt->setInt(2, idCliente);
+        pstmt->setString(3, tipoCuenta);
+        pstmt->execute();
+
+        pstmt = con->prepareStatement("INSERT INTO Certificados(IDCertificado, IDCliente, Monto, Moneda, TasaInteres, Plazo, FechaEmision, FechaVencimiento, Estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        pstmt->setInt(1, idCertificado);
+        pstmt->setInt(2, idCliente);
+        pstmt->setDouble(3, monto);
+        pstmt->setString(4, tipoCuenta);
+        pstmt->setDouble(5, interes_plazo_cert);
+        pstmt->setInt(6, plazo_cert);
+        pstmt->setString(7, fechaEmisionStr);
+        pstmt->setString(8, fechaVencimientoStr);
+        pstmt->setString(9, estado);
+        pstmt->execute();
+        delete(pstmt);
+
+        cout << "Transferencia realizada correctamente." << endl;
+        return;
+
+    } catch(sql::SQLException &e) {
+        cout << "Error al crear el certificado: " << e.what() << endl;
+    } catch(runtime_error &e) {
+        cout << "Ocurrio un error en el frontend: " << e.what() << endl;
+    }
+}
+
+string BancoApp::agregarMeses(int meses) {
+    time_t now = time(0);  // Current system time
+    tm *ltm = localtime(&now);  // Convert to local time
+
+    ltm->tm_mon += meses;  // Add months
+
+    // Handle year increment if month exceeds 12
+    while (ltm->tm_mon > 11) {  // Months in tm are 0-11
+        ltm->tm_mon -= 12;  // Reduce month by 12
+        ltm->tm_year += 1;  // Increment year
+    }
+
+    // Normalize the tm structure (important if day exceeds month's day capacity)
+    mktime(ltm);
+
+    // Format the date as YYYY-MM-DD
+    stringstream dateStream;
+    dateStream << (ltm->tm_year + 1900) << '-'  // tm_year is years since 1900
+               << setw(2) << setfill('0') << (ltm->tm_mon + 1) << '-'  // tm_mon is month from 0-11
+               << setw(2) << setfill('0') << ltm->tm_mday;  // tm_mday is day of the month
+
+    return dateStream.str();
 }

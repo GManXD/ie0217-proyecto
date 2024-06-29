@@ -10,7 +10,7 @@ int main() {
     int opcion;
 
     do {
-        cout << "1. \nAtención al Cliente\n";
+        cout << "1. Atención al Cliente\n";
         cout << "2. Información General\n";
         cout << "3. Salir\n";
         cout << "Seleccione una opción: ";
@@ -38,9 +38,9 @@ int main() {
                 cout << "7. Historial de transacciones\n";
                 cout << "8. Regresar al Menú Principal\n";
                 cout << "Seleccione una opción: ";
-                cout << "\n ------------------------------------------------------------------------\n\n";
                 cin >> subOpcion;
-
+                cout << "\n ------------------------------------------------------------------------\n\n";
+                
                 // Verificar si la entrada es inválida
                 if (cin.fail()) {
                     cin.clear(); // Limpiar el estado de error

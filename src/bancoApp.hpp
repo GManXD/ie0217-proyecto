@@ -9,6 +9,8 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 #include <string>
+#include <limits>
+#include <iostream>
 
 // Opciones predefinidas para los tipos de préstamos
 
@@ -22,7 +24,7 @@
 #define INTERES_PRENDARIO 5;  // Taza de interés mensual
 #define CUOTAS_PRENDARIO 18;
 // Certificado de deposito a plazo
-#define INTERES_CERTIFICADO_PLAZO 2;  // Taza de interes anual
+#define INTERES_CERTIFICADO_PLAZO 2.0;  // Taza de interes anual
 #define PLAZO_CERTIFICADO 8;
 
 enum subopciones{
@@ -69,6 +71,8 @@ public:
     void realizarDeposito();
     void realizarTransferencia();
     void imprimirHistorialTransacciones();
+    void insertarCertificado();
+    std::string agregarMeses(int meses);
 };
 
 #endif // BANCOAPP_HPP
