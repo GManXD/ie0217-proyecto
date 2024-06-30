@@ -12,6 +12,37 @@ Grupo de proyecto: 04
 | Óscar Francisco Rojas Rojas  | C36953 |
 <br>  
 
+# Instrucciones de ejecución  
+Para ejecutar el programa se debe ubicar en el directorio "ie0217-proyecto/src/". Este tiene su propio makefile con sus reglas, las cuales son las siguientes:
+
+`build`:
+
+    Compila el código fuente y genera un ejecutable llamado "Banco.exe".
+
+`run`:    
+
+    Ejecuta el programa
+
+`all`:
+
+    Compila y corre el programa. Es decir, primero hace el target build y luego el target run.
+
+`clean`:
+
+    Limpia el directorio de archivos compilados y deja únicamente el código fuente.
+
+Para realizar alguna de estas acciones, se debe escribir en la terminal lo siguiente:
+
+```bash
+  mingw32-make accion
+```
+
+Donde la palabra "accion" se sustituye por la debida acción a realizar, por ejemplo, si deseamos compilar y correr el programa, podemos utilizar la accion all de la siguiente forma:
+
+```bash
+  mingw32-make all
+```
+  
 # Introducción:
 
 En este proyecto se busca optimizar y modernizar la forma en que los agentes bancarios interactúan con los clientes, proporcionando una variedad de operaciones bancarias, desde la atención al cliente hasta la gestión de préstamos y cuentas.
