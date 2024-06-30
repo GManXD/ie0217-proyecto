@@ -982,7 +982,7 @@ void BancoApp::imprimirHistorialTransacciones() {
 void BancoApp::insertarCertificado() {
     try {
         int idCertificado, idCliente, plazo_cert;
-        string fechaEmisionStr, fechaVencimientoStr, estado, tipoCuenta;
+        string fechaEmisionStr, fechaVencimientoStr, estado, tipoCuenta, opcionMoneda;
         double monto, interes_plazo_cert;
 
         time_t now = time(0);
@@ -995,42 +995,34 @@ void BancoApp::insertarCertificado() {
         interes_plazo_cert = INTERES_CERTIFICADO_PLAZO
         fechaVencimientoStr = agregarMeses(plazo_cert);
 
-        cout << "Ingrese el ID del Certificado: ";
-        cin >> idCertificado;
-        if (cin.fail()) {
-            cin.clear(); // Limpiar el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
-            cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
-            return;
-        }
+        validarEntrada("Ingrese el ID del Certificado: ", idCertificado);
         cout << endl;
 
-        cout << "Ingrese el ID del Cliente: ";
-        cin >> idCliente;
-        if (cin.fail()) {
-            cin.clear(); // Limpiar el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
-            cout << "\nEntrada no válida. Por favor, ingrese un número. Operación cancelada." << endl;
-            return;
-        }
+        validarEntrada("Ingrese el ID del Cliente: ", idCliente);
         cout << endl;
         if (!clienteExiste(idCliente)) {
             cout << "Cliente no encontrado. Operación cancelada." << endl;
             return;
         }
 
-        cout << "Ingrese el tipo de cuenta: ";
-        cin >> tipoCuenta;
+        while (true){
+            cout << "Digite el tipo de moneda -> 1: Colones 2: Dolares \n";
+            cin >> opcionMoneda;
+            if (opcionMoneda == "1"){
+                tipoCuenta = "Colones";
+                break;
+            }
+            else if (opcionMoneda == "2"){
+                tipoCuenta = "Dolares";
+                break;
+            }
+            else{
+                cout << "Opcion no valida\n";
+            }
+        }
         cout << endl;
 
-        cout << "Ingrese el monto del certificado: ";
-        cin >> monto;
-        if (cin.fail()) {
-            cin.clear(); // Limpiar el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
-            cout << "\nEntrada no válida. Por favor, ingrese un número. Operación cancelada." << endl;
-            return;
-        }
+        validarEntrada("Ingrese el monto del certificado: ", monto);
         cout << endl;
 
         sql::PreparedStatement *pstmt = con->prepareStatement("SELECT Saldo FROM Cuentas WHERE IDCliente = ? AND TipoCuenta = ?");
@@ -1056,9 +1048,6 @@ void BancoApp::insertarCertificado() {
         delete res;
         delete pstmt;
 
-        cout << "Ingrese el estado con el que desea crear el certificado: ";
-        cin >> estado;
-        cout << endl;
 
         pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo - ? WHERE IDCliente = ? AND TipoCuenta = ?");
         pstmt->setDouble(1, monto);
@@ -1075,7 +1064,7 @@ void BancoApp::insertarCertificado() {
         pstmt->setInt(6, plazo_cert);
         pstmt->setString(7, fechaEmisionStr);
         pstmt->setString(8, fechaVencimientoStr);
-        pstmt->setString(9, estado);
+        pstmt->setString(9, "Activo");
         pstmt->execute();
         delete(pstmt);
 
