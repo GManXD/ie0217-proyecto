@@ -1096,13 +1096,13 @@ void BancoApp::insertarCertificado() {
         pstmt->execute();
         delete(pstmt);
 
-        cout << "Transferencia realizada correctamente." << endl;
+        cout << "Certificado realizado correctamente." << endl;
         return;
 
     } catch(sql::SQLException &e) {
         cout << "Error al crear el certificado: " << e.what() << endl;
     } catch(runtime_error &e) {
-        cout << "Ocurrio un error en el frontend: " << e.what() << endl;
+        cout << "Ocurrio un error : " << e.what() << endl;
     }
 }
 

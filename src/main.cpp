@@ -24,10 +24,9 @@ int main() {
                 cout << "2. Verificar Cliente\n";
                 cout << "3. Obtener Prestamos Activos\n";
                 cout << "4. Obtener Saldos\n";
-                cout << "5. Obtener Cuotas Pendientes\n";
-                cout << "6. Depositos, transferencias y abonos\n";
-                cout << "7. Historial de transacciones\n";
-                cout << "8. Regresar al Menú Principal\n";
+                cout << "5. Depositos, transferencias y abonos\n";
+                cout << "6. Historial de transacciones\n";
+                cout << "7. Regresar al Menú Principal\n";
                 validarEntrada("Seleccione una opción: ", subOpcion);
                 cout << "\n ------------------------------------------------------------------------\n\n";
                 
@@ -62,10 +61,6 @@ int main() {
                         }
 
                         app.obtenerSaldos(IDCliente);
-                        break;
-                    case CUOTAS_PENTIENTES:
-                        cout << "\nIngrese el ID del Prestamo: \n";
-                        // Lógica para obtener cuotas pendientes
                         break;
                     case DEPOSITOS_TRANSFERENCIAS:
                         int opcionDeposito;
@@ -106,7 +101,7 @@ int main() {
                         cout << "\nOpción no válida. \n" << endl;
                         break;
                 }
-            } while(subOpcion != 8);
+            } while(subOpcion != REGRESAR);
         } else if (opcion == 2) {
             app.mostrarInformacionGeneral();
         } else if (opcion != 3) {
