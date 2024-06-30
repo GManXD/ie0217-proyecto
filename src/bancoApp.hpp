@@ -27,6 +27,16 @@
 #define INTERES_CERTIFICADO_PLAZO 2.0;  // Taza de interes anual
 #define PLAZO_CERTIFICADO 8;
 
+enum opcionesPrestamos{
+    
+    REGRESAR_PRESTAMO = 0,
+    PRESTAMO_PERSONAL = 1,
+    PRESTAMO_HIPOTECARIO, //2
+    PRESTAMO_PRENDARIO,
+    CERTIFICADO_PLAZO, 
+    OPCIONES_MAX_PRESAMOS
+};
+
 enum subopciones{
     // Opciones disponibles para el menu
     REGISTRAR_CLIENTE = 1,
@@ -47,6 +57,12 @@ enum opcionesDeposito{
     REGRESAR_DEPOSITO,  // Cambiado de REGRESAR a REGRESAR_DEPOSITO
     OPCIONES_MAX_DEP
 };
+
+
+template <typename T>
+// Plantilla de la funcion de validar una entrada
+void validarEntrada(const std::string &prompt, T &variable);
+
 
 class BancoApp {
 private:

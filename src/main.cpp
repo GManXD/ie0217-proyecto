@@ -13,16 +13,7 @@ int main() {
         cout << "\n1. Atención al Cliente\n";
         cout << "2. Información General\n";
         cout << "3. Salir\n";
-        cout << "Seleccione una opción: ";
-        cin >> opcion;
-
-        // Verificar si la entrada es inválida
-        if (cin.fail()) {
-            cin.clear(); // Limpiar el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
-            cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
-            continue; // Volver a mostrar el menú
-        }
+        validarEntrada("Seleccione una opción: ", opcion);
 
         if (opcion == 1) {
             int subOpcion;
@@ -37,17 +28,9 @@ int main() {
                 cout << "6. Depositos, transferencias y abonos\n";
                 cout << "7. Historial de transacciones\n";
                 cout << "8. Regresar al Menú Principal\n";
-                cout << "Seleccione una opción: ";
-                cin >> subOpcion;
+                validarEntrada("Seleccione una opción: ", subOpcion);
                 cout << "\n ------------------------------------------------------------------------\n\n";
                 
-                // Verificar si la entrada es inválida
-                if (cin.fail()) {
-                    cin.clear(); // Limpiar el estado de error
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
-                    cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
-                    continue; // Volver a mostrar el menú
-                }
 
                 switch(subOpcion) {
                     case REGISTRAR_CLIENTE:
@@ -83,16 +66,7 @@ int main() {
                             cout << "2. Realizar transferencia\n";
                             cout << "3. Abono a un prestamo\n";
                             cout << "4. Regresar al menú anterior\n";
-                            cout << "Seleccione una opción: ";
-                            cin >> opcionDeposito;
-
-                            // Verificar si la entrada es inválida
-                            if (cin.fail()) {
-                                cin.clear(); // Limpiar el estado de error
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar hasta el siguiente salto de línea
-                                cout << "\nEntrada no válida. Por favor, ingrese un número.\n" << endl;
-                                continue; // Volver a mostrar el menú de depósitos y transferencias
-                            }
+                            validarEntrada("Seleccione una opción: ", opcionDeposito);
 
                             switch (opcionDeposito) {
                                 case DEPOSITAR:
