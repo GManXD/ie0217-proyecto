@@ -510,31 +510,20 @@ void BancoApp::mostrarInformacionGeneral() {
                 interes = INTERES_CERTIFICADO_PLAZO
                 cuotas = PLAZO_CERTIFICADO
                 cout << "Un CDP es un certificado de depósito a corto plazo que ofrece un retorno de interés fijo.\n";
-                cout << "Opciones predefinidas para certificados de depósito a corto plazo: \n";
+                cout << "Opciones fijas para los certificados de depósito a corto plazo: \n";
                 cout << "Tasa de interés : " << interes << "% anual\n";
                 cout << "Plazo : " << cuotas << "\n";
-                cout << "Si desea personalizar estas opciones digite 1, si desea crear un certificado digite 0: \n";
-                cin >> personalizar;
+                validarEntrada("Si desea obtener el certificado digite 1, de lo contrario digite 0: \n", personalizar);
                 if (personalizar == 1){
-                    cout << "Digite el tipo de moneda: ";
-                    cin >> tipoMoneda;
-                    cout << "Digite la taza de interes anual: ";
-                    cin >> interes;
-                    cout << "Digite la cantidad de cuotas: ";
-                    cin >> cuotas;
-                    cout << "Digite el monto del certificado: ";
-                    cin >> monto;
-
+                    this->insertarCertificado();
                 }
                 else if (personalizar == 0){
-                    this->insertarCertificado();
+                    cout << "De acuerdo, volviendo al menú principal.... " ;
+                    break;
                 }
                 else{
                     cout << "Opción no valida";
                 }
-
-                cout << "Al final del plazo de " << cuotas << " meses, recibirá un monto de : \n";
-
                 break;
 
             case REGRESAR_PRESTAMO:
