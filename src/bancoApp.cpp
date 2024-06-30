@@ -61,6 +61,35 @@ int BancoApp::generarIDPrestamo() {
     return IDPrestamo;
 }
 
+int BancoApp::generarIDCertificado() {
+    int IDCertificado;
+    bool idExiste;
+
+    do {
+        IDCertificado = rand() % 10000; // Generar un ID aleatorio entre 0 y 9999
+        idExiste = certificadoExiste(IDCertificado);
+    } while (idExiste);
+
+    return IDCertificado;
+}
+
+bool BancoApp::certificadoExiste(int IDCertificado) {
+    try {
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT * FROM Certificados WHERE IDCertificado = ?");
+        pstmt->setInt(1, IDCertificado);
+        sql::ResultSet *res = pstmt->executeQuery();
+
+        bool existe = res->next();
+        
+        delete res;
+        delete pstmt;
+        return existe;
+    } catch (sql::SQLException &e) {
+        cout << "Error al verificar el certificado: " << e.what() << endl;
+        return false;  // Error al verificar el certificado
+    }
+}
+
 bool BancoApp::prestamoExiste(int IDPrestamo) {
     try {
         sql::PreparedStatement *pstmt = con->prepareStatement("SELECT * FROM Prestamos WHERE IDPrestamo = ?");
@@ -995,8 +1024,7 @@ void BancoApp::insertarCertificado() {
         interes_plazo_cert = INTERES_CERTIFICADO_PLAZO
         fechaVencimientoStr = agregarMeses(plazo_cert);
 
-        validarEntrada("Ingrese el ID del Certificado: ", idCertificado);
-        cout << endl;
+        idCertificado = generarIDCertificado(); // Generar un ID de certificado único
 
         validarEntrada("Ingrese el ID del Cliente: ", idCliente);
         cout << endl;

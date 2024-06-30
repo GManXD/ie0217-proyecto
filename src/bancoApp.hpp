@@ -149,11 +149,18 @@ public:
     int generarIDPrestamo();
 
     /**
-     * @brief Genera un nuevo ID para una transacción.
+     * @brief Genera un nuevo ID aleatorio para una transacción.
      * 
      * @return Nuevo ID de transacción
      */
     int generarIDTransaccion();
+
+    /**
+     * @brief Genera un nuevo ID aleatorio para un certificado.
+     * 
+     * @return Nuevo ID de certificado
+     */
+    int BancoApp::generarIDCertificado() 
 
     /**
      * @brief Verifica si un préstamo existe.
@@ -186,6 +193,14 @@ public:
      * @return true si la transacción existe, false en caso contrario
      */
     bool transaccionExiste(int IDTransaccion);
+
+    /**
+     * @brief Verifica si un certificado existe.
+     * 
+     * @param IDCertificado ID del certificado a verificar
+     * @return true si el certificado existe, false en caso contrario
+     */
+    bool BancoApp::certificadoExiste(int IDCertificado)
 
     /**
      * @brief Registra un nuevo cliente en el banco.
