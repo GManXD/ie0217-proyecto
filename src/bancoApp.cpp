@@ -227,7 +227,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 
                                 int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto a pagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, MontoPagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, IDCliente);
                                 pstmt->setString(3, tipoPrestamo);
@@ -241,7 +241,7 @@ void BancoApp::mostrarInformacionGeneral() {
 
                                 
                                 // Insertar tambien para DetallePrestamo
-                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, FechaVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
+                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, PeriodoVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, cuotas);
                                 pstmt->setInt(3, monto);
@@ -330,7 +330,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 
                                 int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto a pagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, MontoPagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, IDCliente);
                                 pstmt->setString(3, tipoPrestamo);
@@ -344,7 +344,7 @@ void BancoApp::mostrarInformacionGeneral() {
 
                                 
                                 // Insertar tambien para DetallePrestamo
-                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, FechaVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
+                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, PeriodoVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, cuotas);
                                 pstmt->setInt(3, monto);
@@ -435,7 +435,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 
                                 int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto a pagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, MontoPagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, IDCliente);
                                 pstmt->setString(3, tipoPrestamo);
@@ -449,7 +449,7 @@ void BancoApp::mostrarInformacionGeneral() {
 
                                 
                                 // Insertar tambien para DetallePrestamo
-                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, FechaVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
+                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, PeriodoVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, cuotas);
                                 pstmt->setInt(3, monto);
@@ -549,7 +549,7 @@ bool BancoApp::clienteExiste(int IDCliente) {
 //MODIFICADO PARA VER LOS PRESTAMOS ACTIVOS
 void BancoApp::obtenerPrestamosActivos(int IDCliente) {
     try {
-        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT dp.IDPrestamo, dp.NumeroCuota, dp.MontoCuota, dp.FechaVencimiento, dp.EstadoPago "
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT dp.IDPrestamo, dp.NumeroCuota, dp.MontoCuota, dp.PeriodoVencimiento, dp.EstadoPago "
                                                               "FROM DetallePrestamo dp "
                                                               "JOIN Prestamos p ON dp.IDPrestamo = p.IDPrestamo "
                                                               "WHERE p.IDCliente = ? AND dp.EstadoPago = 'Pendiente'");
@@ -561,7 +561,7 @@ void BancoApp::obtenerPrestamosActivos(int IDCliente) {
             cout << "ID de Préstamo: " << res->getInt("IDPrestamo") << "\n";
             cout << "Número de Cuota: " << res->getInt("NumeroCuota") << "\n";
             cout << "Monto de Cuota: " << res->getDouble("MontoCuota") << "\n";
-            cout << "Fecha de Vencimiento: " << res->getString("FechaVencimiento") << "\n";
+            cout << "Periodo de Vencimiento: " << res->getString("PeriodoVencimiento") << "\n";
             cout << "Estado de Pago: " << res->getString("EstadoPago") << "\n";
             cout << "------------------------\n";
         }
@@ -896,7 +896,7 @@ void BancoApp::realizarAbono() {
         }
 
         // Realizar el abono
-        pstmt = con->prepareStatement("UPDATE Prestamos SET Monto a pagar = Monto a pagar - ? WHERE IDPrestamo = ?");
+        pstmt = con->prepareStatement("UPDATE Prestamos SET MontoPagar = MontoPagar - ? WHERE IDPrestamo = ?");
         pstmt->setDouble(1, monto);
         pstmt->setInt(2, IDPrestamo);
         pstmt->execute();
