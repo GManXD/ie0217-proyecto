@@ -275,81 +275,93 @@ void BancoApp::mostrarInformacionGeneral() {
                 cout << "Opciones predefinidas para prestamos hipotecarios: \n";
                 cout << "Tasa de interés fija: " << interes << "% mensual\n";
                 cout << "Cantidad de cuotas: " << cuotas << "\n";
-                cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
-                cin >> personalizar;
-                if (personalizar == 1){
-                    cout << "Digite el tipo de moneda: ";
-                    cin >> tipoMoneda;
-                    cout << "Digite la taza de interes mensual: ";
-                    cin >> interes;
-                    cout << "Digite la cantidad de cuotas: ";
-                    cin >> cuotas;
-                    cout << "Digite el monto del prestamo: ";
-                    cin >> monto;
+                while (true){
+                    validarEntrada("Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n", personalizar);
+                    if (personalizar == 0 || personalizar == 1){
+                        string opcionMoneda;
+                        while (true){
+                            cout << "Digite el tipo de moneda -> 1: Colones 2: Dolares \n";
+                            cin >> opcionMoneda;
+                            if (opcionMoneda == "1"){
+                                tipoMoneda = "Colones";
+                                break;
+                            }
+                            else if (opcionMoneda == "2"){
+                                tipoMoneda = "Dolares";
+                                break;
+                            }
+                            else{
+                                cout << "Opcion no valida\n";
+                            }
+                        }
+                    }
+                    if (personalizar == 1){
+                        validarEntrada("Digite la taza de interes mensual: ", interes);
+                        validarEntrada("Digite la cantidad de cuotas: ", cuotas);
+                        validarEntrada("Digite el monto del prestamo: ", monto);
+                        break;
+                    }
+                    else if (personalizar == 0){
+                        validarEntrada("Digite el monto del prestamo: ", monto);
+                        break;
+                    }
+                    else{
+                        cout << "Opción no valida\n";
+                    }
                 }
-                else if (personalizar == 0){
-                    cout << "Digite el tipo de moneda: ";
-                    cin >> tipoMoneda;
-                    cout << "Digite el monto del prestamo: ";
-                    cin >> monto;
-                }
-                else{
-                    cout << "Opción no valida";
-                }
-
                 cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
                 
+                while (true){
+                    cout << "Si desea generar el prestamo digite 1, de lo contrario digite 0: ";
+                    cin >> generar;
 
-                cout << "Si desea generar el prestamo digite 1, de lo contrario digite 0: ";
-                cin >> generar;
+                    if (generar == "0"){
+                        cout << "De acuerdo, volviendo al menú principal.... " ;
+                    }
 
-                if (generar == "0"){
-                    cout << "De acuerdo, volviendo al menú principal.... " ;
-                }
+                    else if (generar == "1"){
+                        string tipoPrestamo = "Hipotecario";
+                        validarEntrada("Digite su ID de cliente: ", IDCliente);
+                        // Verificar si el id del cliente existe
+                        if (clienteExiste(IDCliente)) {
+                            try {
+                                
+                                int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                else if (generar == "1"){
-                    string tipoPrestamo = "Hipotecario";
-                    cout << "Digite su ID de cliente: ";
-                    cin >> IDCliente;
-                    // Verificar si el id del cliente existe
-                    if (clienteExiste(IDCliente)) {
-                        try {
-                            
-                            int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto, Moneda, TasaInteres, Periodo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                pstmt->setInt(1, IDPrestamo);
+                                pstmt->setInt(2, IDCliente);
+                                pstmt->setString(3, tipoPrestamo);
+                                pstmt->setInt(4, monto);
+                                pstmt->setString(5, tipoMoneda);
+                                pstmt->setInt(6, interes);
+                                pstmt->setInt(7, cuotas);
+                                pstmt->execute();
+                                delete pstmt;
 
-                            sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto, Moneda, TasaInteres, Periodo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                            pstmt->setInt(1, IDPrestamo);
-                            pstmt->setInt(2, IDCliente);
-                            pstmt->setString(3, tipoPrestamo);
-                            pstmt->setInt(4, monto);
-                            pstmt->setString(5, tipoMoneda);
-                            pstmt->setInt(6, interes);
-                            pstmt->setInt(7, cuotas);
-                            pstmt->execute();
-                            delete pstmt;
+                                
+                                // Insertar tambien para DetallePrestamo
+                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, FechaVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
+                                pstmt->setInt(1, IDPrestamo);
+                                pstmt->setInt(2, cuotas);
+                                pstmt->setInt(3, monto);
+                                string periodo = to_string(cuotas) + "meses";
+                                pstmt->setString(4, periodo);
+                                pstmt->setString(5, "Pendiente");
+                                pstmt->execute();
 
-                            
-                            // Insertar tambien para DetallePrestamo
-                            pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, FechaVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
-                            pstmt->setInt(1, IDPrestamo);
-                            pstmt->setInt(2, cuotas);
-                            pstmt->setInt(3, monto);
-                            string periodo = to_string(cuotas) + "meses";
-                            pstmt->setString(4, periodo);
-                            pstmt->setString(5, "Pendiente");
-                            pstmt->execute();
+                                delete pstmt;
 
-                            delete pstmt;
+                                cout << "Registro exitoso, su ID de Prestamo es: " << IDPrestamo << endl;
 
-                            cout << "Registro exitoso, su ID de Prestamo es: " << IDPrestamo << endl;
-
-                        } catch (sql::SQLException &e) {
-                            cout << "Error al registrar el prestamo: " << e.what() << endl;
-                        } catch (runtime_error &e) {
-                            cout << "Error: " << e.what() << endl;
+                            } catch (sql::SQLException &e) {
+                                cout << "Error al registrar el prestamo: " << e.what() << endl;
+                            } catch (runtime_error &e) {
+                                cout << "Error: " << e.what() << endl;
+                            }
+                        } else {
+                            cout << "El cliente con ID " << IDCliente << " no existe." << endl;
                         }
-                    } else {
-                        cout << "El cliente con ID " << IDCliente << " no existe." << endl;
                     }
                 }
                 break;
@@ -361,82 +373,95 @@ void BancoApp::mostrarInformacionGeneral() {
                 cout << "Opciones predefinidas para prestamos prendarios: \n";
                 cout << "Tasa de interés fija: " << interes << "% mensual\n";
                 cout << "Cantidad de cuotas: " << cuotas << "\n";
-                cout << "Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n";
-                cin >> personalizar;
-                if (personalizar == 1){
-                    cout << "Digite el tipo de moneda: ";
-                    cin >> tipoMoneda;
-                    cout << "Digite la taza de interes mensual: ";
-                    cin >> interes;
-                    cout <<"Digite la cantidad de cuotas: ";
-                    cin >> cuotas;
-                    cout <<"Digite el monto del prestamo: ";
-                    cin >> monto;
-                }
-                else if (personalizar == 0){
-                    cout << "Digite el tipo de moneda: ";
-                    cin >> tipoMoneda;
-                    cout << "Digite el monto del prestamo: ";
-                    cin >> monto;
-                }
-                else{
-                    cout << "Opción no valida";
+                while (true){
+                    validarEntrada("Si desea personalizar estas opciones digite 1, de lo contrario digite 0: \n", personalizar);
+                    if (personalizar == 0 || personalizar == 1){
+                        string opcionMoneda;
+                        while (true){
+                            cout << "Digite el tipo de moneda -> 1: Colones 2: Dolares \n";
+                            cin >> opcionMoneda;
+                            if (opcionMoneda == "1"){
+                                tipoMoneda = "Colones";
+                                break;
+                            }
+                            else if (opcionMoneda == "2"){
+                                tipoMoneda = "Dolares";
+                                break;
+                            }
+                            else{
+                                cout << "Opcion no valida\n";
+                            }
+                        }
+                    }
+                    if (personalizar == 1){
+                        validarEntrada("Digite la taza de interes mensual: ", interes);
+                        validarEntrada("Digite la cantidad de cuotas: ", cuotas);
+                        validarEntrada("Digite el monto del prestamo: ", monto);
+                        break;
+                    }
+                    else if (personalizar == 0){
+                        validarEntrada("Digite el monto del prestamo: ", monto);
+                        break;
+                    }
+                    else{
+                        cout << "Opción no valida\n";
+                    }
                 }
 
                 cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
 
 
+                while(true){
+                    cout << "Si desea generar el prestamo digite 1, de lo contrario digite 0: ";
+                    cin >> generar;
 
-                cout << "Si desea generar el prestamo digite 1, de lo contrario digite 0: ";
-                cin >> generar;
+                    if (generar == "0"){
+                        cout << "De acuerdo, volviendo al menú principal.... " ;
+                    }
 
-                if (generar == "0"){
-                    cout << "De acuerdo, volviendo al menú principal.... " ;
-                }
+                    else if (generar == "1"){
+                        string tipoPrestamo = "Prendario";
+                        validarEntrada("Digite su ID de cliente: ", IDCliente);
+                        // Verificar si el id del cliente existe
+                        if (clienteExiste(IDCliente)) {
+                            try {
+                                
+                                int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                else if (generar == "1"){
-                    string tipoPrestamo = "Prendario";
-                    cout << "Digite su ID de cliente: ";
-                    cin >> IDCliente;
-                    // Verificar si el id del cliente existe
-                    if (clienteExiste(IDCliente)) {
-                        try {
-                            
-                            int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto, Moneda, TasaInteres, Periodo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                pstmt->setInt(1, IDPrestamo);
+                                pstmt->setInt(2, IDCliente);
+                                pstmt->setString(3, tipoPrestamo);
+                                pstmt->setInt(4, monto);
+                                pstmt->setString(5, tipoMoneda);
+                                pstmt->setInt(6, interes);
+                                pstmt->setInt(7, cuotas);
+                                pstmt->execute();
+                                delete pstmt;
 
-                            sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto, Moneda, TasaInteres, Periodo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                            pstmt->setInt(1, IDPrestamo);
-                            pstmt->setInt(2, IDCliente);
-                            pstmt->setString(3, tipoPrestamo);
-                            pstmt->setInt(4, monto);
-                            pstmt->setString(5, tipoMoneda);
-                            pstmt->setInt(6, interes);
-                            pstmt->setInt(7, cuotas);
-                            pstmt->execute();
-                            delete pstmt;
+                                
+                                // Insertar tambien para DetallePrestamo
+                                pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, FechaVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
+                                pstmt->setInt(1, IDPrestamo);
+                                pstmt->setInt(2, cuotas);
+                                pstmt->setInt(3, monto);
+                                string periodo = to_string(cuotas) + "meses";
+                                pstmt->setString(4, periodo);
+                                pstmt->setString(5, "Pendiente");
+                                pstmt->execute();
 
-                            
-                            // Insertar tambien para DetallePrestamo
-                            pstmt = con->prepareStatement("INSERT INTO DetallePrestamo (IDPrestamo, NumeroCuota, MontoCuota, FechaVencimiento, EstadoPago) VALUES (?, ?, ?, ?, ?)");
-                            pstmt->setInt(1, IDPrestamo);
-                            pstmt->setInt(2, cuotas);
-                            pstmt->setInt(3, monto);
-                            string periodo = to_string(cuotas) + "meses";
-                            pstmt->setString(4, periodo);
-                            pstmt->setString(5, "Pendiente");
-                            pstmt->execute();
+                                delete pstmt;
 
-                            delete pstmt;
+                                cout << "Registro exitoso, su ID de Prestamo es: " << IDPrestamo << endl;
 
-                            cout << "Registro exitoso, su ID de Prestamo es: " << IDPrestamo << endl;
-
-                        } catch (sql::SQLException &e) {
-                            cout << "Error al registrar el prestamo: " << e.what() << endl;
-                        } catch (runtime_error &e) {
-                            cout << "Error: " << e.what() << endl;
+                            } catch (sql::SQLException &e) {
+                                cout << "Error al registrar el prestamo: " << e.what() << endl;
+                            } catch (runtime_error &e) {
+                                cout << "Error: " << e.what() << endl;
+                            }
+                        } else {
+                            cout << "El cliente con ID " << IDCliente << " no existe." << endl;
                         }
-                    } else {
-                        cout << "El cliente con ID " << IDCliente << " no existe." << endl;
                     }
                 }
                 break;
