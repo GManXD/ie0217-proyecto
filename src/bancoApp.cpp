@@ -317,6 +317,7 @@ void BancoApp::mostrarInformacionGeneral() {
 
                     if (generar == "0"){
                         cout << "De acuerdo, volviendo al menú principal.... " ;
+                        break;
                     }
 
                     else if (generar == "1"){
@@ -362,7 +363,10 @@ void BancoApp::mostrarInformacionGeneral() {
                         } else {
                             cout << "El cliente con ID " << IDCliente << " no existe." << endl;
                         }
-                    }
+                        break;
+                    } else{
+                        cout << "Opcion no valida\n";
+                    }   
                 }
                 break;
             
@@ -417,6 +421,7 @@ void BancoApp::mostrarInformacionGeneral() {
 
                     if (generar == "0"){
                         cout << "De acuerdo, volviendo al menú principal.... " ;
+                        break;
                     }
 
                     else if (generar == "1"){
@@ -462,6 +467,9 @@ void BancoApp::mostrarInformacionGeneral() {
                         } else {
                             cout << "El cliente con ID " << IDCliente << " no existe." << endl;
                         }
+                        break;
+                    } else {
+                        cout << "Opcion no valida\n";
                     }
                 }
                 break;
