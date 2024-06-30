@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 #include <sstream>
 #include <iomanip>
 
@@ -172,6 +173,25 @@ bool BancoApp::cuentaExiste(int IDCuenta) {
     }
 }
 
+void BancoApp::imprimirTablaAmortizacion(double monto, double interes, int cuotas) {
+    double r = interes / 100.0; // tasa de interés en forma decimal
+    double cuotaMensual = (monto * r) / (1 - pow(1 + r, -cuotas));
+    double saldoRestante = monto;
+
+    cout << "Cuota | Saldo Restante | Monto Cuota | Capital | Interes" << endl;
+    for (int i = 1; i <= cuotas; ++i) {
+        double interesCuota = saldoRestante * r;
+        double capitalCuota = cuotaMensual - interesCuota;
+        saldoRestante -= capitalCuota;
+
+        cout << setw(5) << i << " | " 
+             << setw(14) << fixed << setprecision(2) << saldoRestante << " | "
+             << setw(11) << fixed << setprecision(2) << cuotaMensual << " | "
+             << setw(7) << fixed << setprecision(2) << capitalCuota << " | "
+             << setw(8) << fixed << setprecision(2) << interesCuota << endl;
+    }
+}
+
 void BancoApp::mostrarInformacionGeneral() {
     int opcionPrestamo;
     string tipoMoneda;
@@ -237,6 +257,8 @@ void BancoApp::mostrarInformacionGeneral() {
                     }
                 }
                 cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
+
+                imprimirTablaAmortizacion(monto, interes, cuotas);
 
 
                 while (true){
@@ -340,6 +362,8 @@ void BancoApp::mostrarInformacionGeneral() {
                     }
                 }
                 cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
+
+                imprimirTablaAmortizacion(monto, interes, cuotas);
                 
                 while (true){
                     cout << "Si desea generar el prestamo digite 1, de lo contrario digite 0: ";
@@ -444,6 +468,9 @@ void BancoApp::mostrarInformacionGeneral() {
                 }
 
                 cout << "A continuación se muestra la tabla de pagos para el prestamo: " << endl;
+
+
+                imprimirTablaAmortizacion(monto, interes, cuotas);
 
 
                 while(true){

@@ -259,6 +259,16 @@ public:
      * @return Fecha actualizada en formato de cadena
      */
     std::string agregarMeses(int meses);
+
+    /**
+     * @brief Calcula la cuota mensual de un préstamo.
+     * 
+     * @param monto Monto del préstamo
+     * @param interes Tasa de interés mensual
+     * @param cuotas Número de cuotas
+     * @return Cuota mensual
+     */
+    void imprimirTablaAmortizacion(double monto, double interes, int cuotas);
 };
 
 #endif // BANCOAPP_HPP
