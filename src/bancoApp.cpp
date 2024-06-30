@@ -699,6 +699,121 @@ void BancoApp::realizarTransferencia() {
         cout << "Error al realizar la transferencia: " << e.what() << endl;
     }
 }
+
+void BancoApp::realizarAbono() {
+    try {
+        int IDClienteOrigen, IDPrestamo;
+        string tipoCuentaOrigen, tipoMonedaPrestamo;
+        double monto;
+        double tasaCambioDolaresAColones = 600.0; // Ejemplo de tasa de cambio (1 dólar = 600 colones)
+        double tasaCambioColonesADolares = 1 / tasaCambioDolaresAColones;
+
+        cout << "Ingrese el ID del Cliente origen: ";
+        cin >> IDClienteOrigen;
+        if (!clienteExiste(IDClienteOrigen)) {
+            cout << "Cliente origen no encontrado. Operación cancelada." << endl;
+            return;
+        }
+
+        cout << "Ingrese el tipo de cuenta origen (Dolares/Colones): ";
+        cin >> tipoCuentaOrigen;
+
+        cout << "Ingrese el ID del Prestamo al cual desea abonar: ";
+        cin >> IDPrestamo;
+        if (!prestamoExiste(IDPrestamo)) {
+            cout << "Prestamo no encontrado. Operación cancelada." << endl;
+            return;
+        }
+
+        // Obtener el tipo de moneda del prestamo
+        sql::PreparedStatement *pstmt = con->prepareStatement("SELECT Moneda FROM Prestamos WHERE IDPrestamo = ?");
+        pstmt->setInt(1, IDPrestamo);
+        sql::ResultSet *res = pstmt->executeQuery();
+        if (res->next()) {
+            string tipoMonedaPrestamo = res->getString("Moneda");
+        } else {
+            cout << "Prestamo no encontrado. Operación cancelada." << endl;
+            delete res;
+            delete pstmt;
+            return;
+        }
+
+
+        cout << "Ingrese el monto a abonar: ";
+        cin >> monto;
+
+        // Verificar que la cuenta origen tenga suficiente saldo
+        pstmt = con->prepareStatement("SELECT Saldo FROM Cuentas WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setInt(1, IDClienteOrigen);
+        pstmt->setString(2, tipoCuentaOrigen);
+        res = pstmt->executeQuery();
+
+        if (res->next()) {
+            double saldoOrigen = res->getDouble("Saldo");
+            if (saldoOrigen < monto) {
+                cout << "Saldo insuficiente en la cuenta origen. Operación cancelada." << endl;
+                delete res;
+                delete pstmt;
+                return;
+            }
+        } else {
+            cout << "Error al obtener el saldo de la cuenta origen. Operación cancelada." << endl;
+            delete res;
+            delete pstmt;
+            return;
+        }
+        delete res;
+        delete pstmt;
+
+        // Actualizar el saldo de la cuenta origen
+        pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo - ? WHERE IDCliente = ? AND TipoCuenta = ?");
+        pstmt->setDouble(1, monto);
+        pstmt->setInt(2, IDClienteOrigen);
+        pstmt->setString(3, tipoCuentaOrigen);
+        pstmt->execute();
+
+
+        // Convertir el monto si las cuentas son de tipos diferentes
+        if (tipoCuentaOrigen != tipoMonedaPrestamo) {
+            if (tipoCuentaOrigen == "Dolares" && tipoMonedaPrestamo == "Colones") {
+                monto *= tasaCambioDolaresAColones;
+            } else if (tipoCuentaOrigen == "Colones" && tipoMonedaPrestamo == "Dolares") {
+                monto *= tasaCambioColonesADolares;
+            } else {
+                cout << "Tipo de cuenta no válido. Operación cancelada." << endl;
+                return;
+            }
+        }
+
+        // Realizar el abono
+        pstmt = con->prepareStatement("UPDATE Prestamos SET Monto = Monto - ? WHERE IDPrestamo = ?");
+        pstmt->setDouble(1, monto);
+        pstmt->setInt(2, IDPrestamo);
+        pstmt->execute();
+
+        int IDTransaccion = generarIDTransaccion();
+        cout << "Insertando transacción con los siguientes datos:" << endl;
+        cout << "IDTransaccion: " << IDTransaccion << endl;
+        cout << "IDCliente: " << IDClienteOrigen << endl;
+        cout << "TipoTransaccion: Abono" << endl;
+        cout << "Monto: " << monto << endl;
+        cout << "IDPrestamo: " << IDPrestamo << endl;
+
+        // Registrar la transaccion
+        pstmt = con->prepareStatement("INSERT INTO Transacciones (IDTransaccion, IDCliente, TipoTransaccion, Monto, FechaTransaccion, IDCuentaDestino) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, ?)");
+        pstmt->setInt(1, IDTransaccion);
+        pstmt->setInt(2, IDClienteOrigen);
+        pstmt->setString(3, "Abono");
+        pstmt->setDouble(4, monto);
+        pstmt->setInt(5, IDPrestamo);
+        pstmt->execute();
+        cout << "Abono realizado exitosamente." << endl;
+    } catch (sql::SQLException &e) {
+        cout << "Error al realizar el abono: " << e.what() << endl;
+    } 
+}
+
+
 void BancoApp::obtenerSaldos(int IDCliente) {
     try {
         sql::PreparedStatement *pstmt = con->prepareStatement("SELECT TipoCuenta, Saldo FROM Cuentas WHERE IDCliente = ?");

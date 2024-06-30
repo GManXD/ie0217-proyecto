@@ -43,6 +43,7 @@ enum subopciones{
 enum opcionesDeposito{
     DEPOSITAR = 1,
     TRANSFERENCIA, //2
+    ABONO,
     REGRESAR_DEPOSITO,  // Cambiado de REGRESAR a REGRESAR_DEPOSITO
     OPCIONES_MAX_DEP
 };
@@ -70,6 +71,7 @@ public:
     void obtenerCuotasPendientes(int IDPrestamo);
     void realizarDeposito();
     void realizarTransferencia();
+    void realizarAbono();
     void imprimirHistorialTransacciones();
     void insertarCertificado();
     std::string agregarMeses(int meses);

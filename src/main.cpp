@@ -10,7 +10,7 @@ int main() {
     int opcion;
 
     do {
-        cout << "1. Atención al Cliente\n";
+        cout << "\n1. Atención al Cliente\n";
         cout << "2. Información General\n";
         cout << "3. Salir\n";
         cout << "Seleccione una opción: ";
@@ -34,7 +34,7 @@ int main() {
                 cout << "3. Obtener Prestamos Activos\n";
                 cout << "4. Obtener Saldos\n";
                 cout << "5. Obtener Cuotas Pendientes\n";
-                cout << "6. Depositos y transferencias\n";
+                cout << "6. Depositos, transferencias y abonos\n";
                 cout << "7. Historial de transacciones\n";
                 cout << "8. Regresar al Menú Principal\n";
                 cout << "Seleccione una opción: ";
@@ -81,7 +81,8 @@ int main() {
                         do {
                             cout << "\n1. Realizar depósito\n";
                             cout << "2. Realizar transferencia\n";
-                            cout << "3. Regresar al menú anterior\n";
+                            cout << "3. Abono a un prestamo\n";
+                            cout << "4. Regresar al menú anterior\n";
                             cout << "Seleccione una opción: ";
                             cin >> opcionDeposito;
 
@@ -100,6 +101,9 @@ int main() {
                                 case TRANSFERENCIA:
                                     app.realizarTransferencia();
                                     break;
+                                case ABONO:
+                                    app.realizarAbono();
+                                    break;
                                 case REGRESAR_DEPOSITO:
                                     cout << "Regresando al menú anterior" << endl;
                                     break;
@@ -107,7 +111,7 @@ int main() {
                                     cout << "Opción no válida. Intente de nuevo." << endl;
                                     break;
                             }
-                        } while (opcionDeposito != 3);
+                        } while (opcionDeposito != 4);
                         break;
 
                     case HISTORIAL_TRANSACCIONES:
