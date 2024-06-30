@@ -160,7 +160,7 @@ public:
      * 
      * @return Nuevo ID de certificado
      */
-    int BancoApp::generarIDCertificado() 
+    int generarIDCertificado();
 
     /**
      * @brief Verifica si un préstamo existe.
@@ -200,7 +200,7 @@ public:
      * @param IDCertificado ID del certificado a verificar
      * @return true si el certificado existe, false en caso contrario
      */
-    bool BancoApp::certificadoExiste(int IDCertificado)
+    bool certificadoExiste(int IDCertificado);
 
     /**
      * @brief Registra un nuevo cliente en el banco.
