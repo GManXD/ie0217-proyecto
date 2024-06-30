@@ -37,8 +37,7 @@ int main() {
                         app.registrarCliente();
                         break;
                     case VERIFICAR_CLIENTE:
-                        cout << "Ingrese el ID del Cliente: ";
-                        cin >> IDCliente;
+                        validarEntrada("\nIngrese el ID del Cliente: \n", IDCliente);
                         if (app.clienteExiste(IDCliente)) {
                             cout << "El cliente con ID " << IDCliente << " existe." << endl;
                         } else {
@@ -46,13 +45,22 @@ int main() {
                         }
                         break;
                     case PRESTAMOS_ACTIVOS:
-                        cout << "\nIngrese el ID del Cliente: \n";
-                        cin >> IDCliente;
+                        validarEntrada("\nIngrese el ID del Cliente: \n", IDCliente);
+                        if (!app.clienteExiste(IDCliente)) {
+                            cout << "Cliente no encontrado. Operación cancelada." << endl;
+                            break;
+                        }
+
                         app.obtenerPrestamosActivos(IDCliente);
                         break;
+
                     case SALDOS:
-                        cout << "\nIngrese el ID del Cliente: \n";
-                        cin >> IDCliente;
+                        validarEntrada("\nIngrese el ID del Cliente: \n", IDCliente);
+                        if (!app.clienteExiste(IDCliente)) {
+                            cout << "Cliente no encontrado. Operación cancelada." << endl;
+                            break;
+                        }
+
                         app.obtenerSaldos(IDCliente);
                         break;
                     case CUOTAS_PENTIENTES:

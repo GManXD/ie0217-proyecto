@@ -571,15 +571,14 @@ void BancoApp::obtenerPrestamosActivos(int IDCliente) {
 } //HASTA ACA
 
 void BancoApp::registrarCliente() {
-    string nombre, apellido, cedula, telefono;
+    string nombre, apellido;
+    int cedula, telefono;
     cout << "Ingrese Nombre: ";
     cin >> nombre;
     cout << "Ingrese Apellido: ";
     cin >> apellido;
-    cout << "Ingrese Cedula: ";
-    cin >> cedula;
-    cout << "Ingrese Telefono: ";
-    cin >> telefono;
+    validarEntrada("Ingrese Cedula: ", cedula);
+    validarEntrada("Ingrese Telefono: ", telefono);
 
     try {
         int IDCliente = generarIDCliente(); // Generar un ID de cliente único
@@ -588,8 +587,8 @@ void BancoApp::registrarCliente() {
         pstmt->setInt(1, IDCliente);
         pstmt->setString(2, nombre);
         pstmt->setString(3, apellido);
-        pstmt->setString(4, cedula);
-        pstmt->setString(5, telefono);
+        pstmt->setString(4, to_string(cedula));
+        pstmt->setString(5, to_string(telefono));
         pstmt->execute();
         delete pstmt;
 
@@ -625,20 +624,30 @@ void BancoApp::registrarCliente() {
 void BancoApp::realizarDeposito() {
     try {
         int IDCliente;
-        string tipoCuenta;
+        string tipoCuenta, opcionMoneda;
         double monto;
-
-        cout << "Ingrese el ID del Cliente: ";
-        cin >> IDCliente;
+        validarEntrada("Ingrese el ID del Cliente: ", IDCliente);
         if (!clienteExiste(IDCliente)) {
             cout << "Cliente no encontrado. Operación cancelada." << endl;
             return;
         }
+        while (true){
+            cout << "Digite el tipo de cuenta -> 1: Colones 2: Dolares \n";
+            cin >> opcionMoneda;
+            if (opcionMoneda == "1"){
+                tipoCuenta = "Colones";
+                break;
+            }
+            else if (opcionMoneda == "2"){
+                tipoCuenta = "Dolares";
+                break;
+            }
+            else{
+                cout << "Opcion no valida\n";
+            }
+        }
 
-        cout << "Ingrese el tipo de cuenta (Dolares/Colones): ";
-        cin >> tipoCuenta;
-        cout << "Ingrese el monto a depositar: ";
-        cin >> monto;
+        validarEntrada("Ingrese el monto a depositar: ", monto);
 
         sql::PreparedStatement *pstmt = con->prepareStatement("UPDATE Cuentas SET Saldo = Saldo + ? WHERE IDCliente = ? AND TipoCuenta = ?");
         pstmt->setDouble(1, monto);
@@ -669,33 +678,55 @@ void BancoApp::realizarDeposito() {
 void BancoApp::realizarTransferencia() {
     try {
         int IDClienteOrigen, IDClienteDestino;
-        string tipoCuentaOrigen, tipoCuentaDestino;
+        string tipoCuentaOrigen, tipoCuentaDestino, opcionMoneda;
         double monto;
         double tasaCambioDolaresAColones = 600.0; // Ejemplo de tasa de cambio (1 dólar = 600 colones)
         double tasaCambioColonesADolares = 1 / tasaCambioDolaresAColones;
 
-        cout << "Ingrese el ID del Cliente origen: ";
-        cin >> IDClienteOrigen;
+        validarEntrada("Ingrese el ID del Cliente origen: ", IDClienteOrigen);
         if (!clienteExiste(IDClienteOrigen)) {
             cout << "Cliente origen no encontrado. Operación cancelada." << endl;
             return;
         }
+        while (true){
+            cout << "Digite el tipo de cuenta origen -> 1: Colones 2: Dolares \n";
+            cin >> opcionMoneda;
+            if (opcionMoneda == "1"){
+                tipoCuentaOrigen = "Colones";
+                break;
+            }
+            else if (opcionMoneda == "2"){
+                tipoCuentaOrigen = "Dolares";
+                break;
+            }
+            else{
+                cout << "Opcion no valida\n";
+            }
+        }
 
-        cout << "Ingrese el tipo de cuenta origen (Dolares/Colones): ";
-        cin >> tipoCuentaOrigen;
-
-        cout << "Ingrese el ID del Cliente destino: ";
-        cin >> IDClienteDestino;
+        validarEntrada("Ingrese el ID del Cliente destino: ", IDClienteDestino);
         if (!clienteExiste(IDClienteDestino)) {
             cout << "Cliente destino no encontrado. Operación cancelada." << endl;
             return;
         }
 
-        cout << "Ingrese el tipo de cuenta destino (Dolares/Colones): ";
-        cin >> tipoCuentaDestino;
+        while (true){
+            cout << "Digite el tipo de cuenta destino -> 1: Colones 2: Dolares \n";
+            cin >> opcionMoneda;
+            if (opcionMoneda == "1"){
+                tipoCuentaDestino = "Colones";
+                break;
+            }
+            else if (opcionMoneda == "2"){
+                tipoCuentaDestino = "Dolares";
+                break;
+            }
+            else{
+                cout << "Opcion no valida\n";
+            }
+        }
 
-        cout << "Ingrese el monto a transferir: ";
-        cin >> monto;
+        validarEntrada("Ingrese el monto a transferir: ", monto);
 
         // Verificar que la cuenta origen tenga suficiente saldo
         sql::PreparedStatement *pstmt = con->prepareStatement("SELECT Saldo FROM Cuentas WHERE IDCliente = ? AND TipoCuenta = ?");
@@ -770,23 +801,34 @@ void BancoApp::realizarTransferencia() {
 void BancoApp::realizarAbono() {
     try {
         int IDClienteOrigen, IDPrestamo;
-        string tipoCuentaOrigen, tipoMonedaPrestamo;
+        string tipoCuentaOrigen, tipoMonedaPrestamo, opcionMoneda;
         double monto;
         double tasaCambioDolaresAColones = 600.0; // Ejemplo de tasa de cambio (1 dólar = 600 colones)
         double tasaCambioColonesADolares = 1 / tasaCambioDolaresAColones;
 
-        cout << "Ingrese el ID del Cliente origen: ";
-        cin >> IDClienteOrigen;
+        validarEntrada("Ingrese el ID del Cliente origen: ", IDClienteOrigen);
         if (!clienteExiste(IDClienteOrigen)) {
             cout << "Cliente origen no encontrado. Operación cancelada." << endl;
             return;
         }
 
-        cout << "Ingrese el tipo de cuenta origen (Dolares/Colones): ";
-        cin >> tipoCuentaOrigen;
+        while (true){
+            cout << "Digite el tipo de cuenta origen -> 1: Colones 2: Dolares \n";
+            cin >> opcionMoneda;
+            if (opcionMoneda == "1"){
+                tipoCuentaOrigen = "Colones";
+                break;
+            }
+            else if (opcionMoneda == "2"){
+                tipoCuentaOrigen = "Dolares";
+                break;
+            }
+            else{
+                cout << "Opcion no valida\n";
+            }
+        }
 
-        cout << "Ingrese el ID del Prestamo al cual desea abonar: ";
-        cin >> IDPrestamo;
+        validarEntrada("Ingrese el ID del Prestamo al cual desea abonar: ", IDPrestamo);
         if (!prestamoExiste(IDPrestamo)) {
             cout << "Prestamo no encontrado. Operación cancelada." << endl;
             return;
@@ -805,8 +847,7 @@ void BancoApp::realizarAbono() {
             return;
         }
 
-        cout << "Ingrese el monto a abonar: ";
-        cin >> monto;
+        validarEntrada("Ingrese el monto a abonar: ", monto);
 
         // Verificar que la cuenta origen tenga suficiente saldo
         pstmt = con->prepareStatement("SELECT Saldo FROM Cuentas WHERE IDCliente = ? AND TipoCuenta = ?");
@@ -903,9 +944,7 @@ void BancoApp::obtenerSaldos(int IDCliente) {
 void BancoApp::imprimirHistorialTransacciones() {
     try {
         int IDCliente;
-        
-        cout << "Ingrese el ID del Cliente: ";
-        cin >> IDCliente;
+        validarEntrada("Ingrese el ID del Cliente: ", IDCliente);
         if (!clienteExiste(IDCliente)) {
             cout << "Cliente no encontrado. Operación cancelada." << endl;
             return;
