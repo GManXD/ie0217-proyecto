@@ -227,7 +227,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 
                                 int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto, Moneda, TasaInteres, Periodo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto a pagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, IDCliente);
                                 pstmt->setString(3, tipoPrestamo);
@@ -235,6 +235,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 pstmt->setString(5, tipoMoneda);
                                 pstmt->setInt(6, interes);
                                 pstmt->setInt(7, cuotas);
+                                pstmt->setInt(8, monto);
                                 pstmt->execute();
                                 delete pstmt;
 
@@ -329,7 +330,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 
                                 int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto, Moneda, TasaInteres, Periodo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto a pagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, IDCliente);
                                 pstmt->setString(3, tipoPrestamo);
@@ -337,6 +338,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 pstmt->setString(5, tipoMoneda);
                                 pstmt->setInt(6, interes);
                                 pstmt->setInt(7, cuotas);
+                                pstmt->setInt(8, monto);
                                 pstmt->execute();
                                 delete pstmt;
 
@@ -433,7 +435,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 
                                 int IDPrestamo = generarIDPrestamo(); // Generar un ID de Prestamo único
 
-                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto, Moneda, TasaInteres, Periodo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                sql::PreparedStatement* pstmt = con->prepareStatement("INSERT INTO Prestamos (IDPrestamo, IDCliente, TipoPrestamo, Monto a pagar, Moneda, TasaInteres, Periodo, MontoInicial) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                                 pstmt->setInt(1, IDPrestamo);
                                 pstmt->setInt(2, IDCliente);
                                 pstmt->setString(3, tipoPrestamo);
@@ -441,6 +443,7 @@ void BancoApp::mostrarInformacionGeneral() {
                                 pstmt->setString(5, tipoMoneda);
                                 pstmt->setInt(6, interes);
                                 pstmt->setInt(7, cuotas);
+                                pstmt->setInt(8, monto);
                                 pstmt->execute();
                                 delete pstmt;
 
@@ -893,7 +896,7 @@ void BancoApp::realizarAbono() {
         }
 
         // Realizar el abono
-        pstmt = con->prepareStatement("UPDATE Prestamos SET Monto = Monto - ? WHERE IDPrestamo = ?");
+        pstmt = con->prepareStatement("UPDATE Prestamos SET Monto a pagar = Monto a pagar - ? WHERE IDPrestamo = ?");
         pstmt->setDouble(1, monto);
         pstmt->setInt(2, IDPrestamo);
         pstmt->execute();
