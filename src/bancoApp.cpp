@@ -730,14 +730,13 @@ void BancoApp::realizarAbono() {
         pstmt->setInt(1, IDPrestamo);
         sql::ResultSet *res = pstmt->executeQuery();
         if (res->next()) {
-            string tipoMonedaPrestamo = res->getString("Moneda");
+            tipoMonedaPrestamo = res->getString("Moneda");
         } else {
-            cout << "Prestamo no encontrado. Operación cancelada." << endl;
+            cout << "No se pudo encontrar el tipo de moneda del prestamo. Operación cancelada." << endl;
             delete res;
             delete pstmt;
             return;
         }
-
 
         cout << "Ingrese el monto a abonar: ";
         cin >> monto;
